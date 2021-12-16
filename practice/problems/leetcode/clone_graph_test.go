@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func TestCloneGraph(t *testing.T) {
@@ -46,6 +47,12 @@ func newGraph(adjList [][]int) *Node {
 
 // assertGraphEquality runs assertions to test that graph b is a true copy of graph a.
 func assertGraphEquality(t *testing.T, a, b *Node, visited map[int]struct{}) {
+	if a == nil {
+		require.Nil(t, b, "a is nil, but b is not")
+		return
+	} else if b == nil {
+		assert.Fail(t, "a is not nil, but b is nil")
+	}
 	if _, ok := visited[a.Val]; ok {
 		return
 	}
