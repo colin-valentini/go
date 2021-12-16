@@ -6,7 +6,7 @@ on:
 name: CI
 jobs:
   golangci:
-    name: Build, Test, Lint
+    name: Lint and Test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -14,14 +14,12 @@ jobs:
       - name: Install Go
         uses: actions/setup-go@v2
         with:
-          go-version: '1.17.5'
+          go-version: 1.17.x
       - name: Go Version
         run: go version
-      - name: Run build
-        run: go build .
-      - name: golangci-lint
+      - name: Lint
         uses: golangci/golangci-lint-action@v2
         with:
           version: latest
       - name: Test
-        run: go test ./...
+        run: go test -race ./...
