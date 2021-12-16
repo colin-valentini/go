@@ -6,7 +6,7 @@ on:
 name: CI
 jobs:
   golangci:
-    name: Lint and Test
+    name: Build, Lint, Vet, Test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -15,8 +15,10 @@ jobs:
         uses: actions/setup-go@v2
         with:
           go-version: 1.17.x
-      - name: Go Version
-        run: go version
+      - name: Go Build
+        run: go build ./...
+      - name: Go Vet
+        run: go vet ./...
       - name: Lint
         uses: golangci/golangci-lint-action@v2
         with:
