@@ -5,7 +5,7 @@ on:
   pull_request:
 name: CI
 jobs:
-  build:
+  golangci:
     name: Build, Test, Lint
     runs-on: ubuntu-latest
     steps:
@@ -15,17 +15,13 @@ jobs:
         uses: actions/setup-go@v2
         with:
           go-version: '1.17.5'
-      - name: Install Dependencies
-        run: |
-          go version
-          go install ./ ...
+      - name: Go Version
+        run: go version
       - name: Run build
         run: go build .
-      - name: Vet
-        run: go vet .
-      - name: Lint
-        run: golint .
-      - name: Format
-        run: gofmt .
+      - name: golangci-lint
+        uses: golangci/golangci-lint-action@v2
+        with:
+          version: latest
       - name: Test
         run: go test ./...
