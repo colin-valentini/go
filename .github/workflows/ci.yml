@@ -16,7 +16,6 @@ jobs:
       - name: Install Dependencies
         run: |
           go version
-          go get -u golang.org/x/lint/golint
           go install ./ ...
       - name: Checkout code
         uses: actions/checkout@v2
