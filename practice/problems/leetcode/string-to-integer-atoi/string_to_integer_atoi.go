@@ -5,6 +5,7 @@ import (
     "unicode/utf8"
 )
 
+// LeetCode #8.
 // Link: https://leetcode.com/problems/string-to-integer-atoi/
 
 // Implement the myAtoi(string s) function, which converts a string to a 32-bit signed integer 
@@ -33,7 +34,7 @@ import (
 //   - 0 <= s.length <= 200
 //   - s consists of English letters (lower-case and upper-case), digits (0-9), ' ', '+', '-', 
 //     and '.'.
-func myAtoi(s string) int {
+func StringToIntegerAtoi(s string) int {
     digits := newAtoiDigits(len(s))
 
     b := []byte(s)

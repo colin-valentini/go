@@ -1,5 +1,6 @@
 package leetcode
 
+// LeetCode #133.
 // Link: https://leetcode.com/problems/clone-graph/
 
 // Given a reference of a node in a connected undirected graph.
@@ -59,7 +60,8 @@ type Node struct {
 	Neighbors []*Node
 }
 
-func cloneGraph(node *Node) *Node {
+// CloneGraph is a solution to the clone graph problem.
+func CloneGraph(node *Node) *Node {
 	return deepClone(node, make(map[int]*Node))
 }
 

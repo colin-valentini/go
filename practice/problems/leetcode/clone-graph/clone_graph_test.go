@@ -7,6 +7,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
+// TestCloneGraph runs test cases for CloneGraph.
 func TestCloneGraph(t *testing.T) {
 	runTestCase(t, [][]int{{}})
 	runTestCase(t, [][]int{})
@@ -15,8 +16,8 @@ func TestCloneGraph(t *testing.T) {
 }
 
 func runTestCase(t *testing.T, adjList [][]int) {
-	expected := newGraph(adjList)
-	actual := cloneGraph(expected)
+	expected := newGraph(t, adjList)
+	actual := CloneGraph(expected)
 	assertGraphEquality(t, expected, actual, map[int]struct{}{})
 }
 
@@ -25,7 +26,8 @@ func runTestCase(t *testing.T, adjList [][]int) {
 // while the second pass establishes the edges between nodes in the graph. 
 // This constructor assumes 1-based indexing on the node values (see 
 // the problem description for more details).
-func newGraph(adjList [][]int) *Node {
+func newGraph(t *testing.T, adjList [][]int) *Node {
+	t.Helper()
 	nodesByVal := map[int]*Node{}
 	for i, neighborVals := range adjList {
 		nodeVal := i+1
