@@ -83,6 +83,16 @@ package leetcode
 // 1  █ █ █ █ █ █
 // 0 ‾‾‾‾‾‾‾‾‾‾‾‾
 
+// Solution outline:
+// If, for each position in the height slice, we knew the tallest height
+// to the left, and the tallest height to the right then we could easily
+// calculate the water column above any given position.
+//
+// The amount of water above each position would just be the min of the
+// tallest to the left, and the tallest to the right less the height
+// at the current position. Only add this value if it's positive.
+//
+// Time: O(N) | Space: O(N)
 func TrappingRainWater(height []int) int {
 	return trappingRainWater(height)
 }
@@ -94,7 +104,7 @@ func trappingRainWater(height []int) int {
 	}
 	
 	// One pass in reverse order to get the "tallest to the right" slice.
-	// We could also generate the "tallest to the right" slice but since
+	// We could also generate the "tallest to the left" slice but since
 	// that requires forward traversal, and we are going to forward traverse
 	// anyway, we don't actually need to store it ahead of time.
 	maxRight := newTallestToTheRight(height)
@@ -102,10 +112,7 @@ func trappingRainWater(height []int) int {
 	// One more pass to calculate the water area.
 	water, maxLeft := 0, 0
 	for i, h := range height {
-		level := min(maxLeft, maxRight[i])
-		if level > h {
-			water += level - h
-		}
+		water += max(min(maxLeft, maxRight[i]) - h, 0)
 		if h > maxLeft {
 			maxLeft = h
 		}
@@ -127,6 +134,13 @@ func newTallestToTheRight(height []int) ([]int) {
 
 func min(x, y int) int {
 	if x < y {
+		return x
+	}
+	return y
+}
+
+func max(x, y int) int {
+	if x > y {
 		return x
 	}
 	return y
