@@ -22,6 +22,7 @@ package leetcode
 // - 1 <= words[i].length, chars.length <= 100
 // - words[i] and chars consist of lowercase English letters.
 
+// CountCharacters is a solution the "find words that can be formed by characters" problem.
 func CountCharacters(words []string, chars string) int {
 	return countCharacters(words, chars)
 }
