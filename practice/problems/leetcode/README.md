@@ -11,7 +11,7 @@
 - [x] [Trapping Rain Water](https://leetcode.com/problems/trapping-rain-water/)
 
 ### Palindromes
-- [ ] [Palindrome Number](https://leetcode.com/problems/palindrome-number/)
+- [x] [Palindrome Number](https://leetcode.com/problems/palindrome-number/)
 - [ ] [Palindrome Linked List](https://leetcode.com/problems/palindrome-linked-list/)
 - [ ] [Palindrome Permutation](https://leetcode.com/problems/palindrome-permutation/)
 - [x] [Longest Palindromic Substring](https://leetcode.com/problems/longest-palindromic-substring/submissions/)
