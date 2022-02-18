@@ -1,7 +1,5 @@
 package palindrome
 
-import "math"
-
 // LeetCode #9.
 // https://leetcode.com/problems/palindrome-number/
 
@@ -28,14 +26,14 @@ import "math"
 // Constraints:
 // - -2^31 <= x <= 2^31 - 1
 
+// IsPalindrome is a solution to the "palindrome number" problem.
 func IsPalindrome(x int) bool {
 	return isPalindrome(x)
 }
 
-
 func isPalindrome(x int) bool {
 	// Negative numbers are never palindromes because the negative sign 
-	// can only be positioned as the leading character.
+	// can only be positioned once as the leading character.
     if x < 0 {
         return false
     }
@@ -53,51 +51,15 @@ func isPalindrome(x int) bool {
 	if x % 10 == 0 {
 		return false
 	}
-	// Fast paths are exhausted, reverse half the digits and check for equality.
-	n := lenDecimalDigits(x)
-	return hasSymmetricDigits(x, n)
-}
-
-// lenDecimalDigits returns the number of decimal digits in the given number.
-func lenDecimalDigits(x int) int {
-	return int(math.Log10(float64(x))) + 1
-}
-
-// nthPowerOfTen returns 10^N, and caches it for subsequent invocations.
-func nthPowerOfTen(n int) int {
-	return int(math.Pow(10, float64(n)))
-}
-
-// hasSymmetricDigits
-func hasSymmetricDigits(x, nd int) bool {
-	if nd % 2 == 1 {
-		midpower := (nd/2)+1
-		midcoeff := nthPowerOfTen(midpower)
-		left := (x - (x % midcoeff)) / midcoeff
-		right := x % nthPowerOfTen(midpower-1)
-		return left == reverseDigits(right, midpower-1)
+	// Fast paths are exhausted, reverse the first half of the digits and check
+	// for numeric equality against the second half. If the number has an odd
+	// number has an odd-number of digits, then after the loop completes x
+	// will have one fewer digit than rev, so we can drop the trailing ones
+	// and compare.
+	rev := 0
+	for x > rev {
+		rev = rev * 10 + (x % 10)
+		x /= 10
 	}
-	midpower := nd/2
-	midcoeff := nthPowerOfTen(midpower)
-	left := (x - (x % midcoeff)) / midcoeff
-	right := x % midcoeff
-	return left == reverseDigits(right, midpower)
-}
-
-// reverseDigits reverses the digits of x, given that x is nd digits long.
-func reverseDigits(x, nd int) int {
-    // Iterate over each digit from right to left, and multipling
-	// that digit by the power of ten at the position symmetric to it.
-    rev := 0
-    for i := 1; i <= nd; i++ {
-        digit := nthDigit(x, i)
-        rev += digit * int(math.Pow(10, float64(nd-i)))
-    }
-    return rev
-}
-
-// nthDigit returns the n-th decimal digit of x using 1-based indexing.
-func nthDigit(x, k int) int {
-    a := x % nthPowerOfTen(k)
-    return (a - (a % nthPowerOfTen(k-1))) / nthPowerOfTen(k-1)
+	return x == rev || x == rev / 10
 }
