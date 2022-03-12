@@ -33,7 +33,7 @@ jobs:
         run: go test -race -covermode=atomic -coverprofile=coverage.out ./...
       
       - name: Func Coverage
-        run: go tool func -html=coverage.out
+        run: go tool -func=coverage.out
       
       # See: https://docs.codecov.com/docs/codecov-uploader#integrity-checking-the-uploader
       - name: Codecov
