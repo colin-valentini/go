@@ -1,9 +1,11 @@
+name: build
+
 on:
   push:
     branches:
       - main
   pull_request:
-name: build
+
 jobs:
   golangci:
     name: Build, Lint, Vet, Test
@@ -15,13 +17,32 @@ jobs:
         uses: actions/setup-go@v2
         with:
           go-version: ~1.17.5
+      
       - name: Build
         run: go build ./...
+      
       - name: Vet
         run: go vet ./...
+      
       - name: Lint
         uses: golangci/golangci-lint-action@v2
         with:
           version: latest
+  
       - name: Test
-        run: go test -race ./...
+        run: go test -race -covermode=atomic -coverprofile=coverage.out ./...
+      
+      - name: Func Coverage
+        run: go tool func -html=coverage.out
+      
+      # See: https://docs.codecov.com/docs/codecov-uploader#integrity-checking-the-uploader
+      - name: Codecov
+        run: |
+          curl https://keybase.io/codecovsecurity/pgp_keys.asc | gpg --no-default-keyring --keyring trustedkeys.gpg --import
+          curl -Os https://uploader.codecov.io/latest/linux/codecov
+          curl -Os https://uploader.codecov.io/latest/linux/codecov.SHA256SUM
+          curl -Os https://uploader.codecov.io/latest/linux/codecov.SHA256SUM.sig
+          gpgv codecov.SHA256SUM.sig codecov.SHA256SUM
+          shasum -a 256 -c codecov.SHA256SUM
+          chmod +x codecov
+          ./codecov
