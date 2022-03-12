@@ -16,7 +16,7 @@ jobs:
       - name: Install Go
         uses: actions/setup-go@v2
         with:
-          go-version: ~1.17.5
+          go-version: ~1.17.8
       
       - name: Build
         run: go build ./...
@@ -35,14 +35,6 @@ jobs:
       - name: Func Coverage
         run: go tool cover -func=coverage.out
       
-      # See: https://docs.codecov.com/docs/codecov-uploader#integrity-checking-the-uploader
-      - name: Codecov
-        run: |
-          curl https://keybase.io/codecovsecurity/pgp_keys.asc | gpg --no-default-keyring --keyring trustedkeys.gpg --import
-          curl -Os https://uploader.codecov.io/latest/linux/codecov
-          curl -Os https://uploader.codecov.io/latest/linux/codecov.SHA256SUM
-          curl -Os https://uploader.codecov.io/latest/linux/codecov.SHA256SUM.sig
-          gpgv codecov.SHA256SUM.sig codecov.SHA256SUM
-          shasum -a 256 -c codecov.SHA256SUM
-          chmod +x codecov
-          ./codecov
+      # See: https://about.codecov.io/blog/getting-started-with-code-coverage-for-golang/
+      - name: Upload Coverage to Codecov
+        run: bash <(curl -s https://codecov.io/bash)
