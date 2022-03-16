@@ -27,10 +27,10 @@ package leetcode
 // Input: image = [[1,1,1],[1,1,0],[1,0,1]], sr = 1, sc = 1, newColor = 2
 // Output: [[2,2,2],[2,2,0],[2,0,1]]
 // Explanation: From the center of the image with position (sr, sc) = (1, 1) 
-// (i.e., the red pixel), all pixels connected by a path of the same color as the starting
-// pixel (i.e., the blue pixels) are colored with the new color.
-// Note the bottom corner is not colored 2, because it is not 4-directionally connected to
-// the starting pixel.
+// (i.e., the red pixel), all pixels connected by a path of the same color as 
+// the starting pixel (i.e., the blue pixels) are colored with the new color.
+// Note the bottom corner is not colored 2, because it is not 4-directionally 
+// connected to the starting pixel.
 
 // Example 2:
 // Input: image = [[0,0,0],[0,0,0]], sr = 0, sc = 0, newColor = 2
@@ -56,20 +56,22 @@ func floodFill(image [][]int, sr, sc, newColor int) [][]int {
 	visited := make(map[cell]nothing, m * n)
 
 	queue := newQueue(m * n)
-	queue.push(cell{row: sr, col: sc})
+	queue.push(cell{sr, sc})
 
 	for !queue.isEmpty() {
 		cell := queue.pop()
-		if _, ok := visited[cell]; ok {
-			continue
-		}
 		visited[cell] = nothing{}
 		if image[cell.row][cell.col] != color {
 			continue
 		}
 		image[cell.row][cell.col] = newColor
 		for _, c := range neighbors(image, cell) {
-			queue.push(c)
+			// It's critical that we check that if we've already visited 
+			// this neighbor otherwise we could push too many cells into
+			// the queue and cause a channel deadlock.
+			if _, ok := visited[c]; !ok {
+				queue.push(c)
+			}
 		}
 	}
     return image
@@ -102,7 +104,6 @@ type cell struct {
 
 type queue struct {
 	ch chan cell
-	size int
 }
 
 func newQueue(size int) *queue {
@@ -110,18 +111,19 @@ func newQueue(size int) *queue {
 }
 
 func (q *queue) push(elem cell) {
+	// Re-sizing is overly complicated for this use case.
+	if len(q.ch) == cap(q.ch) {
+		panic("cannot push, will deadlock")
+	}
 	q.ch <- elem
-	q.size++
 }
 
 func (q *queue) pop() cell {
-	elem := <- q.ch
-	q.size--
-	return elem
+	return <- q.ch
 }
 
 func (q *queue) isEmpty() bool {
-	return q.size == 0
+	return len(q.ch) == 0
 }
 
 type nothing struct{}

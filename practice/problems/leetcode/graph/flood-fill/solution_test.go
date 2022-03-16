@@ -24,6 +24,14 @@ func TestFloodFill(t *testing.T) {
 		{0, 0, 0},
 		{0, 0, 0},
 	}, 0, 0, 2), "Example 2")
+
+	assert.Equal(t, [][]int{
+		{2, 2, 2},
+		{2, 2, 2},
+	}, FloodFill([][]int{
+		{0, 0, 0},
+		{0, 0, 0},
+	}, 1, 1, 2))
 }
 
 func BenchmarkFloodFill(b *testing.B) {
@@ -90,4 +98,10 @@ func TestQueue(t *testing.T) {
 	assert.False(t, q.isEmpty())
 	assert.Equal(t, cell{33, 44}, q.pop())
 	assert.True(t, q.isEmpty())
+	
+	q = newQueue(3)
+	q.push(cell{1, 2})
+	q.push(cell{3, 4})
+	q.push(cell{5, 6})
+	assert.Panics(t, func() { q.push(cell{7, 8})})
 }
