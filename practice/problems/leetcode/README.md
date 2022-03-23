@@ -23,3 +23,10 @@
 ## Graph
 - [x] [Clone Graph](https://leetcode.com/problems/clone-graph/)
 - [x] [Flood Fill](https://leetcode.com/problems/flood-fill/)
+- [x] [Number of Islands](https://leetcode.com/problems/number-of-islands/)
+- [ ] [Surrounded Regions](https://leetcode.com/problems/surrounded-regions/)
+- [ ] [Number of Distinct Islands](https://leetcode.com/problems/number-of-distinct-islands/)
+- [ ] [Walls and Gates](https://leetcode.com/problems/walls-and-gates/)
+- [ ] [Max Area of Island](https://leetcode.com/problems/max-area-of-island/)
+- [ ] [Count Sub Islands](https://leetcode.com/problems/count-sub-islands/)
+- [ ] [Find All Groups of Farmland](https://leetcode.com/problems/find-all-groups-of-farmland/)
