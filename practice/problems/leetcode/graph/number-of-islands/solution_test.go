@@ -22,7 +22,7 @@ func TestNumIslands(t *testing.T) {
 	assert.Equal(t, 0, NumIslands([][]byte{
 		{'0'},
 	}))
-	assert.Equal(t, 0, NumIslands([][]byte{
+	assert.Equal(t, 1, NumIslands([][]byte{
 		{'1'},
 	}))
 	assert.Equal(t, 0, NumIslands([][]byte{
