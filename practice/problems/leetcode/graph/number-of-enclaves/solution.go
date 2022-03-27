@@ -6,10 +6,10 @@ package leetcode
 // You are given an m x n binary matrix grid, where 0 represents a sea cell and
 // 1 represents a land cell.
 
-// A move consists of walking from one land cell to another adjacent 
+// A move consists of walking from one land cell to another adjacent
 // (4-directionally) land cell or walking off the boundary of the grid.
 
-// Return the number of land cells in grid for which we cannot walk off the 
+// Return the number of land cells in grid for which we cannot walk off the
 // boundary of the grid in any number of moves.
 
 // Example 1.
@@ -20,7 +20,7 @@ package leetcode
 // 	[0,0,0,0],
 // ]
 // Output: 3
-// Explanation: There are three 1s that are enclosed by 0s, and one 1 that is 
+// Explanation: There are three 1s that are enclosed by 0s, and one 1 that is
 // not enclosed because its on the boundary.
 
 // Example 2.
@@ -39,7 +39,7 @@ func NumberOfEnclaves(grid [][]int) int {
 
 // Procedure:
 // (1) DFS from each border cell that is a 1. Any cells connected
-//     4-directionally to a border cell is reset to the value 2 in 
+//     4-directionally to a border cell is reset to the value 2 in
 //     the grid.
 // (2) Count every cell in the grid that has value 1 after we did (1).
 func numEnclaves(grid [][]int) int {
