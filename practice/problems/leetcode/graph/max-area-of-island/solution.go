@@ -3,7 +3,7 @@ package leetcode
 // LeetCode #695.
 // Link: https://leetcode.com/problems/max-area-of-island/
 
-// You are given an m x n binary matrix grid. An island is a group of 1's 
+// You are given an m x n binary matrix grid. An island is a group of 1's
 // (representing land) connected 4-directionally (horizontal or vertical.)
 // You may assume all four edges of the grid are surrounded by water.
 
@@ -23,7 +23,7 @@ package leetcode
 // 	[0,0,0,0,0,0,0,1,1,0,0,0,0],
 // ]
 // Output: 6
-// Explanation: The answer is not 11, because the island must be connected 
+// Explanation: The answer is not 11, because the island must be connected
 // 4-directionally.
 
 // Example 2.
@@ -58,7 +58,7 @@ func maxAreaOfIsland(grid [][]int) int {
 			}
 		}
 	}
-    return max
+	return max
 }
 
 func dfs(grid [][]int, r, c int, visited map[cell]nothing) int {
@@ -68,7 +68,7 @@ func dfs(grid [][]int, r, c int, visited map[cell]nothing) int {
 	if _, ok := visited[cell{r, c}]; ok {
 		return 0
 	}
-	visited[cell{r,c}] = nothing{}
+	visited[cell{r, c}] = nothing{}
 	count := 1
 	if 0 <= r-1 {
 		count += dfs(grid, r-1, c, visited)

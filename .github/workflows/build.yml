@@ -28,10 +28,12 @@ jobs:
         uses: golangci/golangci-lint-action@v2
         with:
           version: latest
+          # Optional: golangci-lint command line arguments.
+          args: --verbose
   
       - name: Test
         run: go test -race -covermode=atomic -coverprofile=coverage.out ./...
-      
+              
       # See: https://go.dev/blog/cover
       - name: Func Coverage
         run: go tool cover -func=coverage.out

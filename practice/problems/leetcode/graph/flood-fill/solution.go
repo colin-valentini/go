@@ -10,9 +10,9 @@ package leetcode
 // a flood fill on the image starting from the pixel image[sr][sc].
 
 // To perform a flood fill, consider the starting pixel, plus any pixels connected
-// 4-directionally to the starting pixel of the same color as the starting pixel, 
-// plus any pixels connected 4-directionally to those pixels (also with the same 
-// color), and so on. Replace the color of all of the aforementioned pixels with 
+// 4-directionally to the starting pixel of the same color as the starting pixel,
+// plus any pixels connected 4-directionally to those pixels (also with the same
+// color), and so on. Replace the color of all of the aforementioned pixels with
 // newColor.
 
 // Return the modified image after performing the flood fill.
@@ -26,10 +26,10 @@ package leetcode
 
 // Input: image = [[1,1,1],[1,1,0],[1,0,1]], sr = 1, sc = 1, newColor = 2
 // Output: [[2,2,2],[2,2,0],[2,0,1]]
-// Explanation: From the center of the image with position (sr, sc) = (1, 1) 
-// (i.e., the red pixel), all pixels connected by a path of the same color as 
+// Explanation: From the center of the image with position (sr, sc) = (1, 1)
+// (i.e., the red pixel), all pixels connected by a path of the same color as
 // the starting pixel (i.e., the blue pixels) are colored with the new color.
-// Note the bottom corner is not colored 2, because it is not 4-directionally 
+// Note the bottom corner is not colored 2, because it is not 4-directionally
 // connected to the starting pixel.
 
 // Example 2:
@@ -53,7 +53,7 @@ func floodFill(image [][]int, sr, sc, newColor int) [][]int {
 	m, n := len(image), len(image[0])
 	color := image[sr][sc]
 
-	visited := make(map[cell]nothing, m * n)
+	visited := make(map[cell]nothing, m*n)
 
 	queue := newQueue(m * n)
 	queue.push(cell{sr, sc})
@@ -66,7 +66,7 @@ func floodFill(image [][]int, sr, sc, newColor int) [][]int {
 		}
 		image[cell.row][cell.col] = newColor
 		for _, c := range neighbors(image, cell) {
-			// It's critical that we check that if we've already visited 
+			// It's critical that we check that if we've already visited
 			// this neighbor otherwise we could push too many cells into
 			// the queue and cause a channel deadlock.
 			if _, ok := visited[c]; !ok {
@@ -74,16 +74,16 @@ func floodFill(image [][]int, sr, sc, newColor int) [][]int {
 			}
 		}
 	}
-    return image
+	return image
 }
 
 func neighbors(image [][]int, c cell) []cell {
 	neighbors := make([]cell, 0, 4)
 	candidates := []cell{
-		{c.row-1, c.col},
-		{c.row+1, c.col},
-		{c.row, c.col-1},
-		{c.row, c.col+1},
+		{c.row - 1, c.col},
+		{c.row + 1, c.col},
+		{c.row, c.col - 1},
+		{c.row, c.col + 1},
 	}
 	for _, c := range candidates {
 		if isInBounds(image, c) {
@@ -119,7 +119,7 @@ func (q *queue) push(elem cell) {
 }
 
 func (q *queue) pop() cell {
-	return <- q.ch
+	return <-q.ch
 }
 
 func (q *queue) isEmpty() bool {

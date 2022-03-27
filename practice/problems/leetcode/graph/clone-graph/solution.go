@@ -69,7 +69,7 @@ func CloneGraph(node *Node) *Node {
 // uses the given clones map to cache allocations.
 func deepClone(node *Node, clones map[int]*Node) *Node {
 	// There should be no nil nodes, but proceeding without this
-	// guard would be foolish in practice. We also have an early 
+	// guard would be foolish in practice. We also have an early
 	// return if we've already allocated a copy of the given node
 	if node == nil {
 		return nil

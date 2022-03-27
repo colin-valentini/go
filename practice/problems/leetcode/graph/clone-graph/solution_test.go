@@ -21,16 +21,16 @@ func runTestCase(t *testing.T, adjList [][]int) {
 	assertGraphEquality(t, expected, actual, map[int]struct{}{})
 }
 
-// newGraph creates a new graph data structure from the given adjcency 
-// list in two passes. The first pass allocates each node in memory, 
-// while the second pass establishes the edges between nodes in the graph. 
-// This constructor assumes 1-based indexing on the node values (see 
+// newGraph creates a new graph data structure from the given adjcency
+// list in two passes. The first pass allocates each node in memory,
+// while the second pass establishes the edges between nodes in the graph.
+// This constructor assumes 1-based indexing on the node values (see
 // the problem description for more details).
 func newGraph(t *testing.T, adjList [][]int) *Node {
 	t.Helper()
 	nodesByVal := map[int]*Node{}
 	for i, neighborVals := range adjList {
-		nodeVal := i+1
+		nodeVal := i + 1
 		nodesByVal[nodeVal] = &Node{
 			Val:       nodeVal,
 			Neighbors: make([]*Node, len(neighborVals)),

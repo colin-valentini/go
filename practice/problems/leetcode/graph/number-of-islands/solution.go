@@ -3,10 +3,10 @@ package leetcode
 // LeetCode #200.
 // Link: https://leetcode.com/problems/number-of-islands/
 
-// Given an m x n 2D binary grid grid which represents a map of '1's (land) and 
+// Given an m x n 2D binary grid grid which represents a map of '1's (land) and
 // '0's (water), return the number of islands.
 
-// An island is surrounded by water and is formed by connecting adjacent lands 
+// An island is surrounded by water and is formed by connecting adjacent lands
 // horizontally or vertically. You may assume all four edges of the grid are all
 // surrounded by water.
 
@@ -46,13 +46,13 @@ func NumIslands(grid [][]byte) int {
 //   dive into them if they a "1", repeating step (1)
 //
 // We're able to overwrite the grid values and re-use the existing
-// memory because the problem statement says nothing about not 
+// memory because the problem statement says nothing about not
 // mutating this space.
 func numIslands(grid [][]byte) int {
-    count := 0
+	count := 0
 	for r := range grid {
 		for c := range grid[r] {
-			if grid[r][c] - '0' == 1 {
+			if grid[r][c]-'0' == 1 {
 				dfs(grid, r, c)
 				count++
 			}
@@ -64,10 +64,10 @@ func numIslands(grid [][]byte) int {
 func dfs(grid [][]byte, r, c int) {
 	// Terminate if this cell isn't a 1. This is the case when
 	// we've either visited it already, or it's a "0".
-	if grid[r][c] - '0' != 1 {
+	if grid[r][c]-'0' != 1 {
 		return
 	}
-	// Tag this cell as visited now to avoid recursive calls 
+	// Tag this cell as visited now to avoid recursive calls
 	// repeatedly visiting this cell.
 	grid[r][c] = '2'
 	// Dive into neighbors.

@@ -28,25 +28,25 @@ func CountCharacters(words []string, chars string) int {
 }
 
 func countCharacters(words []string, chars string) int {
-    charCounter := NewCharCounter(chars)
-    count := 0
-    for _, word := range words {
-        if charCounter.copy().canConstruct(word) {
-            count += len(word)
-        }
-    }
-    return count
+	charCounter := NewCharCounter(chars)
+	count := 0
+	for _, word := range words {
+		if charCounter.copy().canConstruct(word) {
+			count += len(word)
+		}
+	}
+	return count
 }
 
 type CharCounter map[rune]int
 
 func NewCharCounter(chars string) CharCounter {
-    cc := make(CharCounter, len(chars))
-    for _, char := range chars {
+	cc := make(CharCounter, len(chars))
+	for _, char := range chars {
 		// Can do unguarded increment here. See: https://staticcheck.io/docs/checks#S1036.
 		cc[char] += 1
-    }
-    return cc
+	}
+	return cc
 }
 
 func (cc CharCounter) canConstruct(word string) bool {
@@ -59,17 +59,17 @@ func (cc CharCounter) canConstruct(word string) bool {
 }
 
 func (cc CharCounter) copy() CharCounter {
-    cp := make(CharCounter, len(cc))
-    for k, v := range cc {
-        cp[k] = v
-    }
-    return cp
+	cp := make(CharCounter, len(cc))
+	for k, v := range cc {
+		cp[k] = v
+	}
+	return cp
 }
 
 func (cc CharCounter) consume(char rune) (int, bool) {
-    _, ok := cc[char]
+	_, ok := cc[char]
 	if ok {
-        cc[char]--
-    }
-    return cc[char], ok
+		cc[char]--
+	}
+	return cc[char], ok
 }
