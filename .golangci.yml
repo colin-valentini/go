@@ -1,0 +1,8 @@
+linters:
+  enable:
+    - gofmt
+linters-settings:
+  gofmt:
+    # Simplify code: gofmt with `-s` option.
+    # Default: true
+    simplify: false
