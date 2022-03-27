@@ -1,8 +1,23 @@
+# https://golangci-lint.run/usage/configuration/#linters-configuration
 linters:
+  # Enable specific linters (in addition to those enabled by default)
   enable:
+    - bidichk
     - gofmt
+    - nilnil
+    - unparam
 linters-settings:
   gofmt:
     # Simplify code: gofmt with `-s` option.
     # Default: true
     simplify: false
+  unparam:
+    # Inspect exported functions.
+    #
+    # Set to true if no external program/library imports your code.
+    # XXX: if you enable this setting, unparam will report a lot of false-positives in text editors:
+    # if it's called for subdir of a project it can't find external interfaces. All text editor integrations
+    # with golangci-lint call it on a directory with the changed file.
+    #
+    # Default: false
+    check-exported: true
