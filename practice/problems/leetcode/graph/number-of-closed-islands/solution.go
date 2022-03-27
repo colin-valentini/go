@@ -4,7 +4,7 @@ package leetcode
 // Link: https://leetcode.com/problems/number-of-closed-islands/
 
 // Given a 2D grid consists of 0s (land) and 1s (water).  An island is a maximal
-// 4-directionally connected group of 0s and a closed island is an island 
+// 4-directionally connected group of 0s and a closed island is an island
 // totally (all left, top, right, bottom) surrounded by 1s.
 
 // Return the number of closed islands.
@@ -18,8 +18,8 @@ package leetcode
 // 	 [1,1,1,1,1,1,1,0],
 // ]
 // Output: 2
-// Explanation: 
-// Islands in gray are closed because they are completely surrounded by water 
+// Explanation:
+// Islands in gray are closed because they are completely surrounded by water
 // (group of 1s).
 
 // Example 2.
@@ -58,7 +58,7 @@ func NumberOfClosedIslands(grid [][]int) int {
 //     touch the border (which means that the this "island", is not an island).
 // (3) If the top-level call returns true, increment our counter of islands.
 func closedIsland(grid [][]int) int {
-    count := 0
+	count := 0
 	for r := range grid {
 		for c := range grid[r] {
 			if grid[r][c] == 0 && dfs(grid, r, c) {

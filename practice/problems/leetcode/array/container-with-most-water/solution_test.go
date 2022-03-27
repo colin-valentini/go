@@ -9,10 +9,10 @@ import (
 // TestContainerWithMostWater runs test cases for ContainerWithMostWater.
 func TestContainerWithMostWater(t *testing.T) {
 	assert := assert.New(t)
-	assert.Equal(1, ContainerWithMostWater([]int{1,1}))
-	assert.Equal(2, ContainerWithMostWater([]int{1,2,1}))
-	assert.Equal(16, ContainerWithMostWater([]int{4,3,2,1,4}))
-	assert.Equal(49, ContainerWithMostWater([]int{1,8,6,2,5,4,8,3,7}))
+	assert.Equal(1, ContainerWithMostWater([]int{1, 1}))
+	assert.Equal(2, ContainerWithMostWater([]int{1, 2, 1}))
+	assert.Equal(16, ContainerWithMostWater([]int{4, 3, 2, 1, 4}))
+	assert.Equal(49, ContainerWithMostWater([]int{1, 8, 6, 2, 5, 4, 8, 3, 7}))
 	assert.Equal(999_999_999, ContainerWithMostWater(testHelperHeightSlice(t)))
 }
 

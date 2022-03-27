@@ -13,9 +13,9 @@ func TestCountCharacters(t *testing.T) {
 	assert.Equal(10, CountCharacters([]string{"hello", "world", "leetcode"}, "welldonehoneyr"))
 	assert.Equal(0, CountCharacters(
 		[]string{
-			"dyiclysmffuhibgfvapygkorkqllqlvokosagyelotobicwcmebnpznjbirzrzsrtzjxhsfpiwyfhzyonmuabtlwin", 
-			"ndqeyhhcquplmznwslewjzuyfgklssvkqxmqjpwhrshycmvrb", 
-			"ulrrbpspyudncdlbkxkrqpivfftrggemkpyjl", 
+			"dyiclysmffuhibgfvapygkorkqllqlvokosagyelotobicwcmebnpznjbirzrzsrtzjxhsfpiwyfhzyonmuabtlwin",
+			"ndqeyhhcquplmznwslewjzuyfgklssvkqxmqjpwhrshycmvrb",
+			"ulrrbpspyudncdlbkxkrqpivfftrggemkpyjl",
 			"boygirdlggnh",
 			"xmqohbyqwagkjzpyawsydmdaattthmuvjbzwpyopyafphx",
 			"nulvimegcsiwvhwuiyednoxpugfeimnnyeoczuzxgxbqjvegcxeqnjbwnbvowastqhojepisusvsidhqmszbrnynkyop",
@@ -35,6 +35,6 @@ func TestCountCharacters(t *testing.T) {
 			"qqxpxpmemkldghbmbyxpkwgkaykaerhmwwjonrhcsubchs",
 		},
 		"usdruypficfbpfbivlrhutcgvyjenlxzeovdyjtgvvfdjzcmikjraspdfp",
-		),
+	),
 	)
 }

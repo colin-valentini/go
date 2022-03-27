@@ -40,7 +40,7 @@ func longestPalindrome(s string) string {
 		start, end := findLongestPalindrome(chars, i)
 		palindromeLen := end - start + 1
 		if palindromeLen > len(longest) {
-			longest = chars[start:end+1]
+			longest = chars[start : end+1]
 		}
 	}
 	return string(longest)
@@ -59,7 +59,7 @@ func findLongestPalindrome(chars []rune, center int) (int, int) {
 
 	// Compute the dual character origin palindrome, and return the longer.
 	n, m := longestPalindromeWithCenter(chars, center, center+1)
-	if m - n > j - i {
+	if m-n > j-i {
 		return n, m
 	}
 	return i, j

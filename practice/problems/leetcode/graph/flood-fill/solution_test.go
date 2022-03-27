@@ -49,7 +49,7 @@ func TestNeighbors(t *testing.T) {
 		{1, 2, 3},
 		{4, 5, 6},
 		{7, 8, 9},
-		{10, 11, 12},	
+		{10, 11, 12},
 	}
 	assert.Equal(t, []cell{
 		{0, 1},
@@ -72,7 +72,7 @@ func TestIsInBounds(t *testing.T) {
 		{0, 0, 0},
 		{0, 0, 0},
 		{0, 0, 0},
-		{0, 0, 0},		
+		{0, 0, 0},
 	}
 	for i := range image {
 		for j := range image[i] {
@@ -98,10 +98,10 @@ func TestQueue(t *testing.T) {
 	assert.False(t, q.isEmpty())
 	assert.Equal(t, cell{33, 44}, q.pop())
 	assert.True(t, q.isEmpty())
-	
+
 	q = newQueue(3)
 	q.push(cell{1, 2})
 	q.push(cell{3, 4})
 	q.push(cell{5, 6})
-	assert.Panics(t, func() { q.push(cell{7, 8})})
+	assert.Panics(t, func() { q.push(cell{7, 8}) })
 }

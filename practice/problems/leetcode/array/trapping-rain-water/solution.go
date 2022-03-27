@@ -54,8 +54,8 @@ package leetcode
 // Output: 22
 
 // 4              █
-// 3              █ • • • █   
-// 2  █ • • • • • █ • • • █ • • • █  
+// 3              █ • • • █
+// 2  █ • • • • • █ • • • █ • • • █
 // 1  █ • • █ • █ █ • █ • █ • █ • █ • █
 // 0 ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
 
@@ -75,11 +75,11 @@ package leetcode
 // Input: height = [6,5,4,3,2,1]
 // Output: 0
 
-// 6  █          
-// 5  █ █        
-// 4  █ █ █       
-// 3  █ █ █ █    
-// 2  █ █ █ █ █  
+// 6  █
+// 5  █ █
+// 4  █ █ █
+// 3  █ █ █ █
+// 2  █ █ █ █ █
 // 1  █ █ █ █ █ █
 // 0 ‾‾‾‾‾‾‾‾‾‾‾‾
 
@@ -102,7 +102,7 @@ func trappingRainWater(height []int) int {
 	if len(height) < 3 {
 		return 0
 	}
-	
+
 	// One pass in reverse order to get the "tallest to the right" slice.
 	// We could also generate the "tallest to the left" slice but since
 	// that requires forward traversal, and we are going to forward traverse
@@ -112,7 +112,7 @@ func trappingRainWater(height []int) int {
 	// One more pass to calculate the water area.
 	water, maxLeft := 0, 0
 	for i, h := range height {
-		water += max(min(maxLeft, maxRight[i]) - h, 0)
+		water += max(min(maxLeft, maxRight[i])-h, 0)
 		if h > maxLeft {
 			maxLeft = h
 		}
@@ -120,10 +120,10 @@ func trappingRainWater(height []int) int {
 	return water
 }
 
-func newTallestToTheRight(height []int) ([]int) {
+func newTallestToTheRight(height []int) []int {
 	right := make([]int, len(height))
 	maxRight := 0
-	for i := len(height)-1; i >= 0; i-- {
+	for i := len(height) - 1; i >= 0; i-- {
 		right[i] = maxRight
 		if height[i] > maxRight {
 			maxRight = height[i]

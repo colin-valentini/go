@@ -15,7 +15,7 @@ package palindrome
 // Example 2:
 // Input: x = -121
 // Output: false
-// Explanation: From left to right, it reads -121. From right to left, it becomes 121-. 
+// Explanation: From left to right, it reads -121. From right to left, it becomes 121-.
 // Therefore it is not a palindrome.
 
 // Example 3:
@@ -32,23 +32,23 @@ func IsPalindrome(x int) bool {
 }
 
 func isPalindrome(x int) bool {
-	// Negative numbers are never palindromes because the negative sign 
+	// Negative numbers are never palindromes because the negative sign
 	// can only be positioned once as the leading character.
-    if x < 0 {
-        return false
-    }
-    // Single digit, non-negative numbers are trivial palindromes.
-    if x < 10 {
-        return true
-    }
-    // Two digit numbers are only a palindromes if they're a multiple of 11.
-    if x < 100 {
-        return x % 11 == 0
-    }
+	if x < 0 {
+		return false
+	}
+	// Single digit, non-negative numbers are trivial palindromes.
+	if x < 10 {
+		return true
+	}
+	// Two digit numbers are only a palindromes if they're a multiple of 11.
+	if x < 100 {
+		return x%11 == 0
+	}
 	// If the value in the ones digit is zero, then the only way this number is a
 	// palindrome is if the number itself is zero (x can't carry a leading zero),
 	// but we checked that case above.
-	if x % 10 == 0 {
+	if x%10 == 0 {
 		return false
 	}
 	// Fast paths are exhausted, reverse the first half of the digits and check
@@ -58,8 +58,8 @@ func isPalindrome(x int) bool {
 	// and compare.
 	rev := 0
 	for x > rev {
-		rev = rev * 10 + (x % 10)
+		rev = rev*10 + (x % 10)
 		x /= 10
 	}
-	return x == rev || x == rev / 10
+	return x == rev || x == rev/10
 }
