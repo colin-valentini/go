@@ -26,6 +26,7 @@
 - [x] [Number of Islands](https://leetcode.com/problems/number-of-islands/)
 - [x] [Surrounded Regions](https://leetcode.com/problems/surrounded-regions/)
 - [ ] [Number of Distinct Islands](https://leetcode.com/problems/number-of-distinct-islands/)
+- [x] [Number of Closed Islands](https://leetcode.com/problems/number-of-closed-islands/)
 - [ ] [Walls and Gates](https://leetcode.com/problems/walls-and-gates/)
 - [x] [Max Area of Island](https://leetcode.com/problems/max-area-of-island/)
 - [ ] [Count Sub Islands](https://leetcode.com/problems/count-sub-islands/)
