@@ -28,6 +28,11 @@ func TestNumberOfClosedIslands(t *testing.T) {
 		{1, 0, 0, 0, 0, 0, 1},
 		{1, 1, 1, 1, 1, 1, 1},
 	}), "Example 3")
+	assert.Equal(t, 0, NumberOfClosedIslands([][]int{
+		{1, 1, 1, 1, 1},
+		{1, 0, 0, 0, 0},
+		{1, 1, 1, 1, 1},
+	}))
 	assert.Equal(t, 5, NumberOfClosedIslands([][]int{
 		{0, 0, 1, 1, 0, 1, 0, 0, 1, 0},
 		{1, 1, 0, 1, 1, 0, 1, 1, 1, 0},
