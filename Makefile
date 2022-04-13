@@ -1,11 +1,25 @@
+.PHONY: build test fmt vet lint tidy fix-build
+
 build:
-	go build ./...
+	bazel build //...
 
 test:
-	go test -race ./...
+	bazel test --test_output=errors //...
 
 fmt:
 	gofmt -s -w .
 
 vet:
 	go vet ./...
+
+lint:
+	golangci-lint run ./...
+
+tidy:
+	go mod tidy -v
+
+update-bazel:
+	bazel run //:gazelle-update-repos
+	bazel run //:gazelle
+
+fix-build: fmt tidy update-bazel

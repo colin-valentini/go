@@ -1,0 +1,15 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "trapping-rain-water",
+    srcs = ["solution.go"],
+    importpath = "github.com/colin-valentini/go/practice/problems/leetcode/array/trapping-rain-water",
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "trapping-rain-water_test",
+    srcs = ["solution_test.go"],
+    embed = [":trapping-rain-water"],
+    deps = ["@com_github_stretchr_testify//assert"],
+)

@@ -1,0 +1,15 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "flood-fill",
+    srcs = ["solution.go"],
+    importpath = "github.com/colin-valentini/go/practice/problems/leetcode/graph/flood-fill",
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "flood-fill_test",
+    srcs = ["solution_test.go"],
+    embed = [":flood-fill"],
+    deps = ["@com_github_stretchr_testify//assert"],
+)
