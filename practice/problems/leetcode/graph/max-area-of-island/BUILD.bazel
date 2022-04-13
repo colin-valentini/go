@@ -1,0 +1,15 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "max-area-of-island",
+    srcs = ["solution.go"],
+    importpath = "github.com/colin-valentini/go/practice/problems/leetcode/graph/max-area-of-island",
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "max-area-of-island_test",
+    srcs = ["solution_test.go"],
+    embed = [":max-area-of-island"],
+    deps = ["@com_github_stretchr_testify//assert"],
+)

@@ -13,3 +13,11 @@
 
 # Dependency directories (remove the comment below to include it)
 # vendor/
+
+# Bazel files
+bazel-bazel-gazelle
+bazel-bin
+bazel-genfiles
+bazel-go
+bazel-out
+bazel-testlogs
