@@ -1,15 +1,15 @@
 load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
 
 go_library(
-    name = "number-of-enclaves",
+    name = "1020_number-of-enclaves",
     srcs = ["solution.go"],
-    importpath = "github.com/colin-valentini/go/practice/problems/leetcode/graph/number-of-enclaves",
+    importpath = "github.com/colin-valentini/go/practice/leetcode/1020_number-of-enclaves",
     visibility = ["//visibility:public"],
 )
 
 go_test(
-    name = "number-of-enclaves_test",
+    name = "1020_number-of-enclaves_test",
     srcs = ["soution_test.go"],
-    embed = [":number-of-enclaves"],
+    embed = [":1020_number-of-enclaves"],
     deps = ["@com_github_stretchr_testify//assert"],
 )

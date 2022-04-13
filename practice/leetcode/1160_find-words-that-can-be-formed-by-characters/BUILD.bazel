@@ -1,0 +1,15 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "1160_find-words-that-can-be-formed-by-characters",
+    srcs = ["solution.go"],
+    importpath = "github.com/colin-valentini/go/practice/leetcode/1160_find-words-that-can-be-formed-by-characters",
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "1160_find-words-that-can-be-formed-by-characters_test",
+    srcs = ["solution_test.go"],
+    embed = [":1160_find-words-that-can-be-formed-by-characters"],
+    deps = ["@com_github_stretchr_testify//assert"],
+)

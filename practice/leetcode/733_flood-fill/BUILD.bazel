@@ -1,15 +1,15 @@
 load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
 
 go_library(
-    name = "number-of-closed-islands",
+    name = "733_flood-fill",
     srcs = ["solution.go"],
-    importpath = "github.com/colin-valentini/go/practice/problems/leetcode/graph/number-of-closed-islands",
+    importpath = "github.com/colin-valentini/go/practice/leetcode/733_flood-fill",
     visibility = ["//visibility:public"],
 )
 
 go_test(
-    name = "number-of-closed-islands_test",
+    name = "733_flood-fill_test",
     srcs = ["solution_test.go"],
-    embed = [":number-of-closed-islands"],
+    embed = [":733_flood-fill"],
     deps = ["@com_github_stretchr_testify//assert"],
 )

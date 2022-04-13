@@ -1,15 +1,15 @@
 load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
 
 go_library(
-    name = "palindrome-number",
+    name = "8_string-to-integer-atoi",
     srcs = ["solution.go"],
-    importpath = "github.com/colin-valentini/go/practice/problems/leetcode/palindrome/palindrome-number",
+    importpath = "github.com/colin-valentini/go/practice/leetcode/8_string-to-integer-atoi",
     visibility = ["//visibility:public"],
 )
 
 go_test(
-    name = "palindrome-number_test",
+    name = "8_string-to-integer-atoi_test",
     srcs = ["solution_test.go"],
-    embed = [":palindrome-number"],
+    embed = [":8_string-to-integer-atoi"],
     deps = ["@com_github_stretchr_testify//assert"],
 )

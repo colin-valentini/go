@@ -1,15 +1,15 @@
 load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
 
 go_library(
-    name = "surrounded-regions",
+    name = "695_max-area-of-island",
     srcs = ["solution.go"],
-    importpath = "github.com/colin-valentini/go/practice/problems/leetcode/graph/surrounded-regions",
+    importpath = "github.com/colin-valentini/go/practice/leetcode/695_max-area-of-island",
     visibility = ["//visibility:public"],
 )
 
 go_test(
-    name = "surrounded-regions_test",
+    name = "695_max-area-of-island_test",
     srcs = ["solution_test.go"],
-    embed = [":surrounded-regions"],
+    embed = [":695_max-area-of-island"],
     deps = ["@com_github_stretchr_testify//assert"],
 )
