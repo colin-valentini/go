@@ -1,15 +1,15 @@
 load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
 
 go_library(
-    name = "string-to-integer-atoi",
+    name = "42_trapping-rain-water",
     srcs = ["solution.go"],
-    importpath = "github.com/colin-valentini/go/practice/problems/leetcode/string/string-to-integer-atoi",
+    importpath = "github.com/colin-valentini/go/practice/leetcode/42_trapping-rain-water",
     visibility = ["//visibility:public"],
 )
 
 go_test(
-    name = "string-to-integer-atoi_test",
+    name = "42_trapping-rain-water_test",
     srcs = ["solution_test.go"],
-    embed = [":string-to-integer-atoi"],
+    embed = [":42_trapping-rain-water"],
     deps = ["@com_github_stretchr_testify//assert"],
 )

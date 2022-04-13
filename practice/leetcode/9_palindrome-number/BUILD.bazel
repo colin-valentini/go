@@ -1,15 +1,15 @@
 load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
 
 go_library(
-    name = "container-with-most-water",
+    name = "9_palindrome-number",
     srcs = ["solution.go"],
-    importpath = "github.com/colin-valentini/go/practice/problems/leetcode/array/container-with-most-water",
+    importpath = "github.com/colin-valentini/go/practice/leetcode/9_palindrome-number",
     visibility = ["//visibility:public"],
 )
 
 go_test(
-    name = "container-with-most-water_test",
+    name = "9_palindrome-number_test",
     srcs = ["solution_test.go"],
-    embed = [":container-with-most-water"],
+    embed = [":9_palindrome-number"],
     deps = ["@com_github_stretchr_testify//assert"],
 )
