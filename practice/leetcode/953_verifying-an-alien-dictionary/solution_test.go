@@ -31,6 +31,12 @@ func TestIsAlienSorted(t *testing.T) {
 			order:  "abcdefghijklmnopqrstuvwxyz",
 			expect: false,
 		},
+		{
+			name: "Trivial Case",
+			words: []string{"aliensdontreadenglish"},
+			order: "abcdefghijklmnopqrstuvwxyz",
+			expect: true,
+		},
 	}
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
