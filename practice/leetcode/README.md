@@ -9,6 +9,7 @@
 ## Array
 - [x] [Container With Most Water](https://leetcode.com/problems/container-with-most-water/)
 - [x] [Trapping Rain Water](https://leetcode.com/problems/trapping-rain-water/)
+- [x] [Verifying an Alien Dictionary](https://leetcode.com/problems/verifying-an-alien-dictionary/)
 
 ### Palindromes
 - [x] [Palindrome Number](https://leetcode.com/problems/palindrome-number/)
