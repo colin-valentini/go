@@ -32,9 +32,15 @@ func TestIsAlienSorted(t *testing.T) {
 			expect: false,
 		},
 		{
-			name: "Trivial Case",
-			words: []string{"aliensdontreadenglish"},
-			order: "abcdefghijklmnopqrstuvwxyz",
+			name:   "Empty Case",
+			words:  []string{},
+			order:  "abcdefghijklmnopqrstuvwxyz",
+			expect: true,
+		},
+		{
+			name:   "Trivial Case",
+			words:  []string{"aliensdontreadenglish"},
+			order:  "abcdefghijklmnopqrstuvwxyz",
 			expect: true,
 		},
 	}
