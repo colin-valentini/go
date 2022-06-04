@@ -34,7 +34,7 @@ package leetcode
 // - 1 <= m, n <= 300
 // - grid[i][j] is '0' or '1'.
 
-// NumIslands is  solution to the number of islands problem.
+// NumIslands is a solution to the number of islands problem.
 func NumIslands(grid [][]byte) int {
 	return numIslands(grid)
 }

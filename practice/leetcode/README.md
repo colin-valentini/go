@@ -33,4 +33,5 @@
 - [x] [Max Area of Island](https://leetcode.com/problems/max-area-of-island/)
 - [ ] [Count Sub Islands](https://leetcode.com/problems/count-sub-islands/)
 - [ ] [Find All Groups of Farmland](https://leetcode.com/problems/find-all-groups-of-farmland/)
+- [x] [Course Schedule II](https://leetcode.com/problems/course-schedule-ii/)
 - [x] [Alien Dictionary](https://leetcode.com/problems/alien-dictionary/)
