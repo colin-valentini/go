@@ -23,4 +23,14 @@ func TestFindOrder(t *testing.T) {
 		{4, 0},
 		{5, 0},
 	}))
+	assert.Equal(t, []int{}, FindOrder(2, [][]int{
+		{1, 0},
+		{0, 1},
+	}))
+	assert.Equal(t, []int{}, FindOrder(4, [][]int{
+		{1, 0},
+		{2, 1},
+		{3, 2},
+		{0, 3},
+	}))
 }
