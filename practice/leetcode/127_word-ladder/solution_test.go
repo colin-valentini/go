@@ -22,4 +22,11 @@ func TestLadderLength(t *testing.T) {
 		"lot",
 		"log",
 	}), "Example 2")
+	assert.Equal(t, 0, LadderLength("hit", "biz", []string{
+		"hot",
+		"dot",
+		"dog",
+		"lot",
+		"biz",
+	}), "No Solution")
 }
