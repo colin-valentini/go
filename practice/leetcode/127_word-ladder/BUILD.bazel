@@ -1,0 +1,15 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "127_word-ladder",
+    srcs = ["solution.go"],
+    importpath = "github.com/colin-valentini/go/practice/leetcode/127_word-ladder",
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "127_word-ladder_test",
+    srcs = ["solution_test.go"],
+    embed = [":127_word-ladder"],
+    deps = ["@com_github_stretchr_testify//assert"],
+)
