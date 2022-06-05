@@ -21,3 +21,8 @@ bazel-genfiles
 bazel-go
 bazel-out
 bazel-testlogs
+
+# Certain VS Code specific files
+.vscode/configurationCache.log
+.vscode/dryrun.log
+.vscode/targets.log

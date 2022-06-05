@@ -1,0 +1,15 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "210_course-schedule-ii",
+    srcs = ["solution.go"],
+    importpath = "github.com/colin-valentini/go/practice/leetcode/210_course-schedule-ii",
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "210_course-schedule-ii_test",
+    srcs = ["solution_test.go"],
+    embed = [":210_course-schedule-ii"],
+    deps = ["@com_github_stretchr_testify//assert"],
+)
