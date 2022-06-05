@@ -69,11 +69,6 @@ func buildAdjacencyList(beginWord string, wordList []string) map[string][]string
 	// edges are bi-directional so knowing that word_i -> word_j implies
 	// that word_j -> word_i
 	for i, word := range append(wordList, beginWord) {
-		// Skip words we've already processed (which is only going to be
-		// `beginWord` if it's in the `wordList`` already)
-		if _, ok := adjList[word]; ok {
-			continue
-		}
 		adjList[word] = []string{}
 		for j, otherWord := range wordList {
 			// Skip self-edges
