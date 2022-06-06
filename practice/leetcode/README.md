@@ -21,6 +21,9 @@
 - [ ] [Shorted Palindrome](https://leetcode.com/problems/shortest-palindrome/)
 - [ ] [Palindrome Pairs](https://leetcode.com/problems/palindrome-pairs/)
 
+## Tree
+- [x] [Binary Tree Level Order Traversal](https://leetcode.com/problems/binary-tree-level-order-traversal/)
+
 ## Graph
 - [x] [Clone Graph](https://leetcode.com/problems/clone-graph/)
 - [x] [Flood Fill](https://leetcode.com/problems/flood-fill/)

@@ -1,0 +1,15 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "102_binary-tree-level-order-traversal",
+    srcs = ["solution.go"],
+    importpath = "github.com/colin-valentini/go/practice/leetcode/102_binary-tree-level-order-traversal",
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "102_binary-tree-level-order-traversal_test",
+    srcs = ["solution_test.go"],
+    embed = [":102_binary-tree-level-order-traversal"],
+    deps = ["@com_github_stretchr_testify//assert"],
+)
