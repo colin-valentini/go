@@ -1,0 +1,18 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "matrix",
+    srcs = ["matrix.go"],
+    importpath = "github.com/colin-valentini/go/practice/types/matrix",
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "matrix_test",
+    srcs = ["matrix_test.go"],
+    embed = [":matrix"],
+    deps = [
+        "@com_github_stretchr_testify//assert",
+        "@com_github_stretchr_testify//require",
+    ],
+)
