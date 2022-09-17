@@ -1,0 +1,15 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "medium",
+    srcs = ["minimum-passes-of-matrix.go"],
+    importpath = "github.com/colin-valentini/go/practice/algoexpert/medium",
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "medium_test",
+    srcs = ["minimum-passes-of-matrix_test.go"],
+    embed = [":medium"],
+    deps = ["@com_github_stretchr_testify//assert"],
+)
