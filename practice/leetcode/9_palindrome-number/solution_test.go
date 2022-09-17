@@ -1,4 +1,4 @@
-package palindrome
+package leetcode
 
 import (
 	"math"

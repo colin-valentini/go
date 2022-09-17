@@ -44,12 +44,15 @@ func SurroundedRegions(board [][]byte) {
 
 // Procedure:
 // (1) For each border cell, if it's an 'O' value, do a DFS starting from
-//     this cell. Each cell that is reachable by DFS (4-directionally) and
-//     is an 'O' value we'll flip to 'R' for "reachable" (these are cells that
-//     are un-surroundable given their continuity to the border).
+//
+//	this cell. Each cell that is reachable by DFS (4-directionally) and
+//	is an 'O' value we'll flip to 'R' for "reachable" (these are cells that
+//	are un-surroundable given their continuity to the border).
+//
 // (3) Iterate over all board cells. If the cell is an 'R' flip it back to an
-//     an 'O'. If it's an 'O', flip it to an 'X' (since we obviously didn't
-//     reach it from the border).
+//
+//	an 'O'. If it's an 'O', flip it to an 'X' (since we obviously didn't
+//	reach it from the border).
 //
 // NOTE: There may be some optimization to determine we do a DFS from the border
 // inwards (and record "unsurroundable" cells), or whether we do a DFS out

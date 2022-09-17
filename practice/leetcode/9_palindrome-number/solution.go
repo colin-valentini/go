@@ -1,4 +1,4 @@
-package palindrome
+package leetcode
 
 // LeetCode #9.
 // https://leetcode.com/problems/palindrome-number/

@@ -39,8 +39,10 @@ func NumberOfEnclaves(grid [][]int) int {
 
 // Procedure:
 // (1) DFS from each border cell that is a 1. Any cells connected
-//     4-directionally to a border cell is reset to the value 2 in
-//     the grid.
+//
+//	4-directionally to a border cell is reset to the value 2 in
+//	the grid.
+//
 // (2) Count every cell in the grid that has value 1 after we did (1).
 func numEnclaves(grid [][]int) int {
 	for r := range grid {
