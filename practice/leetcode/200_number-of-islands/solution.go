@@ -43,7 +43,8 @@ func NumIslands(grid [][]byte) int {
 // (1) Dive into each cell with a "1" value and do a DFS
 // (2) Tag the cell as "-1" to denote visited.
 // (3) For each of the immediate neighbords of this cell,
-//   dive into them if they a "1", repeating step (1)
+//
+//	dive into them if they a "1", repeating step (1)
 //
 // We're able to overwrite the grid values and re-use the existing
 // memory because the problem statement says nothing about not

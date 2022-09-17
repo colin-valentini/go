@@ -53,9 +53,13 @@ func NumberOfClosedIslands(grid [][]int) int {
 
 // Prodedure:
 // (1) Initiate a DFS from inner cells with a 0 (land), flipping them to 2 as
-//     we go to denote that we've visited them.
+//
+//	we go to denote that we've visited them.
+//
 // (2) Each DFS call will return true if none of the neighbors (or itself)
-//     touch the border (which means that the this "island", is not an island).
+//
+//	touch the border (which means that the this "island", is not an island).
+//
 // (3) If the top-level call returns true, increment our counter of islands.
 func closedIsland(grid [][]int) int {
 	count := 0

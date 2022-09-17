@@ -44,10 +44,10 @@ func MaxAreaOfIsland(grid [][]int) int {
 }
 
 // Procedure:
-// - DFS from each cell. Return 0 if the cell is not a 1. Otherwise
-//   return 1 + the count returned by the recursive DFS of neighbor cells.
-// - We avoid revisiting cells by maintaining a set which tracks which cells
-//   have been visited.
+//   - DFS from each cell. Return 0 if the cell is not a 1. Otherwise
+//     return 1 + the count returned by the recursive DFS of neighbor cells.
+//   - We avoid revisiting cells by maintaining a set which tracks which cells
+//     have been visited.
 func maxAreaOfIsland(grid [][]int) int {
 	max := 0
 	visited := map[cell]nothing{}

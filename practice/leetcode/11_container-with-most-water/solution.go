@@ -48,7 +48,7 @@ func twoPointerContainerWithMostWater(height []int) int {
 }
 
 // waterArea returns the water area contained within the bars defined by
-// positions `i` and `j` and the bars they represent in `heights``.
+// positions `i` and `j` and the bars they represent in `heights“.
 func waterArea(height []int, i, j int) int {
 	w := j - i
 	h := height[i]
