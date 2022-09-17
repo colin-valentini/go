@@ -7,6 +7,23 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
+func TestNewMatrix2D(t *testing.T) {
+	type Foo struct {
+		a int
+		b string
+		c map[string]int
+	}
+	// Initialize an empty 2x3 matrix
+	n, m := 2, 3
+	matrix := NewMatrix2D[Foo](n, m)
+
+	want := Foo{a: 69, b: "bar", c: map[string]int{"baz": 420}}
+	assert.True(t, matrix.SetValue(n-1, m-1, want))
+	got, ok := matrix.Value(n-1, m-1)
+	require.True(t, ok)
+	assert.Equal(t, want, got)
+}
+
 func TestIntMatrix2D(t *testing.T) {
 	in := [][]int{
 		{1, 2, 3},
