@@ -31,7 +31,7 @@ jobs:
         with:
           version: latest
           # Optional: golangci-lint command line arguments.
-          args: --verbose
+          # args: --verbose
 
       - name: Build
         run: go build -v ./...
