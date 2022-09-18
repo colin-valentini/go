@@ -5,13 +5,21 @@ linters:
     - staticcheck
     - bidichk
     - gofmt
+    - gosec
+    - misspell
+    - nakedret
     - nilnil
     - unparam
+    - reassign
 linters-settings:
   gofmt:
     # Simplify code: gofmt with `-s` option.
     # Default: true
     simplify: false
+  reassign:
+    # Disallows renaming a package variable
+    # Can trigger on variables that shadow an import name
+    pattern: ".*"
   unparam:
     # Inspect exported functions.
     #
