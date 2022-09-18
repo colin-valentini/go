@@ -42,7 +42,7 @@ func NumIslands(grid [][]byte) int {
 // Procedure:
 // (1) Dive into each cell with a "1" value and do a DFS
 // (2) Tag the cell as "-1" to denote visited.
-// (3) For each of the immediate neighbords of this cell,
+// (3) For each of the immediate neighbors of this cell,
 //
 //	dive into them if they a "1", repeating step (1)
 //
