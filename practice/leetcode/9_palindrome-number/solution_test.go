@@ -24,6 +24,7 @@ func TestIsPalindrome(t *testing.T) {
 	}
 	assert.False(t, IsPalindrome(987))
 	assert.True(t, IsPalindrome(121))
+	assert.False(t, isPalindrome(1_110))
 	assert.True(t, IsPalindrome(4_334))
 	assert.False(t, IsPalindrome(37_985))
 	assert.True(t, IsPalindrome(998_777_666_777_899))
