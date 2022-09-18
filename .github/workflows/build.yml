@@ -24,12 +24,6 @@ jobs:
       
       - name: Version
         run: go version
-
-      - name: Build
-        run: go build -v ./...
-      
-      - name: Vet
-        run: go vet ./...
       
       # See https://github.com/golangci/golangci-lint-action
       - name: Lint
@@ -38,7 +32,13 @@ jobs:
           version: latest
           # Optional: golangci-lint command line arguments.
           args: --verbose
-  
+
+      - name: Build
+        run: go build -v ./...
+      
+      - name: Vet
+        run: go vet ./...
+      
       - name: Test
         run: go test -race -covermode=atomic -coverprofile=coverage.out ./...
               
