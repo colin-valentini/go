@@ -1,0 +1,15 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "minimum-passes-of-matrix",
+    srcs = ["solution.go"],
+    importpath = "github.com/colin-valentini/go/practice/algoexpert/medium/minimum-passes-of-matrix",
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "minimum-passes-of-matrix_test",
+    srcs = ["solution_test.go"],
+    embed = [":minimum-passes-of-matrix"],
+    deps = ["@com_github_stretchr_testify//assert"],
+)
