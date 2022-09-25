@@ -1,4 +1,6 @@
-package medium
+package algoexpert
+
+// https://www.algoexpert.io/questions/minimum-passes-of-matrix
 
 // Write a function that takes in an integer matrix of potentially unequal
 // height and width and returns the minimum number of passes required to convert

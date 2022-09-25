@@ -1,4 +1,4 @@
-package medium
+package algoexpert
 
 import (
 	"testing"
