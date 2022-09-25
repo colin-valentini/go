@@ -7,11 +7,6 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-type knapsackProblemSolution struct {
-	totalValue  int
-	itemIndices []int
-}
-
 func TestKnapsackProblem(t *testing.T) {
 	testCases := []struct {
 		capacity int
@@ -117,29 +112,18 @@ func TestKnapsackProblem(t *testing.T) {
 		},
 	}
 	for i, testCase := range testCases {
+		failMsg := "Failed test case %d: "
+
+		want := testCase.want
 		got := KnapsackProblem(testCase.items, testCase.capacity)
-		require.Len(t, got, 2, "Failed test case %d: unexpected return type", i)
+		require.Len(t, got, 2, failMsg+"return type", i)
 
-		gv := got[0]
-		gotValue, ok := gv.(int)
-		require.True(t, ok)
-		assert.Equal(t, testCase.want.totalValue, gotValue, "Failed test case %d: total value", i)
+		gotValue, ok := got[0].(int)
+		require.True(t, ok, failMsg+"total value type", i)
+		assert.Equal(t, want.totalValue, gotValue, failMsg+"total value", i)
 
-		gi := got[1]
-		gotIndices, ok := gi.([]int)
-		require.True(t, ok)
-
-		giv, giw := 0, 0
-		for _, i := range gotIndices {
-			giv += testCase.items[i][0]
-			giw += testCase.items[i][1]
-		}
-		assert.LessOrEqual(t, giw, testCase.capacity, "Failed test case %d: item indices weight", i)
-
-		wiv := 0
-		for _, i := range testCase.want.itemIndices {
-			wiv += testCase.items[i][0]
-		}
-		assert.Equal(t, wiv, giv, "Failed test case %d: item indices value", i)
+		gotIndices, ok := got[1].([]int)
+		require.True(t, ok, failMsg+"item indices type", i)
+		assert.ElementsMatch(t, want.itemIndices, gotIndices, failMsg+"item indices", i)
 	}
 }

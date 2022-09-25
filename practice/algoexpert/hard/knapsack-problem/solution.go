@@ -35,67 +35,79 @@ type knapsackProblemSolver struct {
 }
 
 func newKnapsackProblemSolver(items [][]int, capacity int) *knapsackProblemSolver {
-	return &knapsackProblemSolver{items, capacity}
+	return &knapsackProblemSolver{items: items, capacity: capacity}
 }
 
+// Solve solves the knapsack problem and returns the solution.
 func (s *knapsackProblemSolver) Solve() []any {
-	// TODO
+	solution := s.solve()
+	// AlgoExpert (unfortunately) requires an untype return
+	return []any{
+		solution.totalValue,
+		solution.itemIndices,
+	}
+}
 
-	// 1. Create a matrix for subsolutions
-	//  - Each row represents an item, with the first row being an empty item
-	//  - Each column represents a capacity, with the last column being the
-	//    specific capacity for this problem
-	subSolutions := make([][]int, len(s.items)+1)
+type knapsackProblemSolution struct {
+	totalValue  int
+	itemIndices []int
+}
 
-	for i := range subSolutions {
-		subSolutions[i] = make([]int, s.capacity+1)
+func (s *knapsackProblemSolver) solve() knapsackProblemSolution {
+	return s.solution(s.subSolutions())
+}
 
-		// Can skip the empty set row, leave filled as zero
+func (s *knapsackProblemSolver) subSolutions() [][]int {
+	sub := make([][]int, len(s.items)+1)
+	for i := range sub {
+		sub[i] = make([]int, s.capacity+1)
+
+		// First row represents an empty item, which we know has no real
+		// solution to any capacity (item of weight zero, and value zero).
 		if i == 0 {
 			continue
 		}
-		itemIdx := i - 1
-		value, weight := s.items[itemIdx][0], s.items[itemIdx][1]
-		for subCapacity := range subSolutions[i] {
-			// This item's weight doesn't fit, so just take the solution
-			// from above which we know doesn't include the current item.
-			solutionAbove := subSolutions[i-1][subCapacity]
+		value, weight := s.items[i-1][0], s.items[i-1][1]
+		for subCapacity := range sub[i] {
+			// If the current item is too heavy to fit in the subproblem
+			// capacity, then take the subsolution above.
+			solutionAbove := sub[i-1][subCapacity]
 			if weight > subCapacity {
-				subSolutions[i][subCapacity] = solutionAbove
+				sub[i][subCapacity] = solutionAbove
 				continue
 			}
-			// This item's weight DOES fit, so we consider the better of what
-			// we'd get with this item, versus what we had without it.
-			solutionWithoutThisItem := subSolutions[i-1][subCapacity-weight]
-			if solutionWithoutThisItem+value <= solutionAbove {
-				subSolutions[i][subCapacity] = solutionAbove
-				continue
+			// Solution at this cell is the better of what we'd get
+			// with this item versus what we had without it.
+			solutionWithItem := sub[i-1][subCapacity-weight] + value
+			if solutionWithItem > solutionAbove {
+				sub[i][subCapacity] = solutionWithItem
 			} else {
-				subSolutions[i][subCapacity] = solutionWithoutThisItem + value
+				sub[i][subCapacity] = solutionAbove
 			}
 		}
 	}
-	totalValue := subSolutions[len(subSolutions)-1][s.capacity]
+	return sub
+}
+
+func (s *knapsackProblemSolver) solution(sub [][]int) knapsackProblemSolution {
+	solution := knapsackProblemSolution{}
+	solution.totalValue = sub[len(s.items)][s.capacity]
 
 	// Backtrack to find which items were included
-	v := totalValue
+	v := solution.totalValue
 	itemIdx, subCapacity := len(s.items), s.capacity
-	itemIndices := make([]int, 0, len(s.items))
+	solution.itemIndices = make([]int, 0, len(s.items))
 	for v > 0 {
 		// If value in this cell is greater than the value in the cell
-		// above, we know that this item was definitely included.
-		if v > subSolutions[itemIdx-1][subCapacity] {
-			itemIndices = append(itemIndices, itemIdx-1)
+		// above, we know that this item was included in the subsolution.
+		if v > sub[itemIdx-1][subCapacity] {
+			solution.itemIndices = append(solution.itemIndices, itemIdx-1)
 			itemWeight := s.items[itemIdx-1][1]
 			subCapacity -= itemWeight
 		}
 		itemIdx--
-		v = subSolutions[itemIdx][subCapacity]
+		v = sub[itemIdx][subCapacity]
 	}
 
-	// AlgoExpert requires this untyped return, which is disappointing.
-	return []any{
-		totalValue,
-		itemIndices,
-	}
+	return solution
 }

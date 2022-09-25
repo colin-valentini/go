@@ -11,5 +11,8 @@ go_test(
     name = "knapsack-problem_test",
     srcs = ["solution_test.go"],
     embed = [":knapsack-problem"],
-    deps = ["@com_github_stretchr_testify//assert"],
+    deps = [
+        "@com_github_stretchr_testify//assert",
+        "@com_github_stretchr_testify//require",
+    ],
 )
