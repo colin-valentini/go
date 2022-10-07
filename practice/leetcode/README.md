@@ -5,6 +5,7 @@
 ## String
 - [x] [String to Integer Atoi](https://leetcode.com/problems/string-to-integer-atoi/)
 - [x] [Find Words That Can Be Formed By Characters](https://leetcode.com/problems/find-words-that-can-be-formed-by-characters/)
+- [x] [Zigzag Conversion](https://leetcode.com/problems/zigzag-conversion/)
 
 ## Array
 - [x] [Container With Most Water](https://leetcode.com/problems/container-with-most-water/)
