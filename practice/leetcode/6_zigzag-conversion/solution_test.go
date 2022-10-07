@@ -8,10 +8,6 @@ import (
 )
 
 func TestZigZagConversion(t *testing.T) {
-	const longStr = "Apalindromeisaword,phrase,number," +
-		"orothersequenceofunitsthatcanbereadthesamewayineitherdirection," +
-		"withgeneralallowancesforadjustmentstopunctuationandworddividers."
-
 	testCases := []struct {
 		s       string
 		numRows int
