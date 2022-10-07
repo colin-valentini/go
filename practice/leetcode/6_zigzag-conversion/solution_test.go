@@ -39,6 +39,10 @@ func TestZigZagConversionIterator(t *testing.T) {
 	s, numRows := "ABCDEFG", 3
 	solver := newZigZagConversionSolver(s, numRows)
 	it := newZigZagConversionIterator(solver)
+
+	// Calling get before advancing even once should return !ok
+	_, _, ok := it.get()
+	require.False(t, ok)
 	require.True(t, it.hasNext())
 
 	rowIterOrder := []int{0, 1, 2, 1, 0, 1, 2}

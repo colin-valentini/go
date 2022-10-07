@@ -64,10 +64,7 @@ func (z *zigZagConversionSolver) Solve() string {
 	// Use the iterator to get each character in zig-zag pattern.
 	it := newZigZagConversionIterator(z)
 	for it.next() {
-		ridx, sidx, ok := it.get()
-		if !ok {
-			panic("Something went wrong")
-		}
+		ridx, sidx, _ := it.get()
 		// Initialize a row if we need to
 		if z.rows[ridx] == nil {
 			z.rows[ridx] = []byte{}
