@@ -22,4 +22,7 @@ update-bazel:
 	bazel run //:gazelle-update-repos
 	bazel run //:gazelle
 
+clean-bazel:
+	bazel clean --expunge
+
 fix-build: fmt tidy update-bazel
