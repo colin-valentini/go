@@ -1,0 +1,18 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "6_zigzag-conversion",
+    srcs = ["solution.go"],
+    importpath = "github.com/colin-valentini/go/practice/leetcode/6_zigzag-conversion",
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "6_zigzag-conversion_test",
+    srcs = ["solution_test.go"],
+    embed = [":6_zigzag-conversion"],
+    deps = [
+        "@com_github_stretchr_testify//assert",
+        "@com_github_stretchr_testify//require",
+    ],
+)
