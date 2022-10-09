@@ -36,31 +36,26 @@ func newLongestCommonPrefixSolver(strs []string) *longestCommonPrefixSolver {
 
 // Solve solves the Longest Common Prefix problem.
 func (s *longestCommonPrefixSolver) Solve() string {
-	//Not allowed from the problem constraints, but it gives me paranoia.
+	// Paranoia.
 	if len(s.strs) == 0 {
 		return ""
 	}
-	prefix := s.strs[0]
-	// Pairwise comparison: take strings a, b from strs and compare character
-	// by character starting from the left to see what the common prefix is.
-	for i := 1; i < len(s.strs); i++ {
-		prefix = s.prefixAmong(prefix, s.strs[i])
-	}
-	return prefix
-}
-
-func (s *longestCommonPrefixSolver) prefixAmong(a, b string) string {
-	minLen := len(a)
-	if len(b) < minLen {
-		minLen = len(b)
-	}
-	next := make([]byte, 0, minLen)
-	for j := 0; j < minLen; j++ {
-		if a[j] == b[j] {
-			next = append(next, a[j])
-		} else {
-			break
+	// Arbitrarily choose the first element for convenience.
+	// We know the longest common prefix is no greater than any randomly
+	// chosen element anyway (by definition).
+	elem := s.strs[0]
+	for i := 0; i < len(elem); i++ {
+		// Check the character at position i against the character at that
+		// position in every other string.
+		for j := 1; j < len(s.strs); j++ {
+			other := s.strs[j]
+			// When we find a character that doesn't match, or a string that
+			// isn't long enough, we're done.
+			if i >= len(other) || other[i] != elem[i] {
+				return string(elem[0:i])
+			}
 		}
 	}
-	return string(next)
+	// All strings were the same in this case.
+	return elem
 }
