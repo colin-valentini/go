@@ -15,6 +15,7 @@ func TestLongestCommonPrefix(t *testing.T) {
 		{strs: []string{"dog", "racecar", "car"}, want: ""},
 		{strs: []string{"bazzz", "bazzzz", "bazzzzzzzzzz"}, want: "bazzz"},
 		{strs: []string{"foo"}, want: "foo"},
+		{strs: []string{}, want: ""},
 	}
 	for i, testCase := range testCases {
 		solver := newLongestCommonPrefixSolver(testCase.strs)
