@@ -1,0 +1,15 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "36_valid-sudoku",
+    srcs = ["solution.go"],
+    importpath = "github.com/colin-valentini/go/practice/leetcode/36_valid-sudoku",
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "36_valid-sudoku_test",
+    srcs = ["solution_test.go"],
+    embed = [":36_valid-sudoku"],
+    deps = ["@com_github_stretchr_testify//assert"],
+)
