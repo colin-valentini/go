@@ -65,11 +65,11 @@ func newValidSudokuSolver(board [][]byte) *validSudokuSolver {
 }
 
 // Solve solves the Valid Sudoku problem.
+// The basic premise of the algorithm is to do one nest for-loop pass,
+// and check if we ever see duplicates in the current row, column and
+// sub-board.
 func (s *validSudokuSolver) Solve() bool {
-	// We know the board is square, and N == 9.
 	N := len(s.board)
-
-	// Keep track of the elements in each sub-grid
 	for r := 0; r < N; r++ {
 		rowCounts, colCounts := make([]int, N), make([]int, N)
 		for c := 0; c < N; c++ {
