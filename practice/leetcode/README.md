@@ -12,6 +12,9 @@
 - [x] [Container With Most Water](https://leetcode.com/problems/container-with-most-water/)
 - [x] [Trapping Rain Water](https://leetcode.com/problems/trapping-rain-water/)
 - [x] [Verifying an Alien Dictionary](https://leetcode.com/problems/verifying-an-alien-dictionary/)
+- [x] [Check if Every Row and Column Contains All Numbers](https://leetcode.com/problems/check-if-every-row-and-column-contains-all-numbers/)
+- [ ] [Valid Sudoku](https://leetcode.com/problems/valid-sudoku/)
+- [ ] [Sudoku Solver](https://leetcode.com/problems/sudoku-solver/)
 
 ### Palindromes
 - [x] [Palindrome Number](https://leetcode.com/problems/palindrome-number/)
