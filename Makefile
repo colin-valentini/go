@@ -1,4 +1,4 @@
-.PHONY: build test fmt vet lint tidy fix-build
+.PHONY: build test fmt vet lint tidy fix-build leetcode
 
 build:
 	bazel build //...
@@ -26,3 +26,7 @@ clean-bazel:
 	bazel clean --expunge
 
 fix-build: fmt tidy update-bazel
+
+leetcode:
+	chmod +x ./scripts/leetcode.sh
+	./scripts/leetcode.sh ./practice/leetcode
