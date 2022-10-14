@@ -29,4 +29,4 @@ fix-build: fmt tidy update-bazel
 
 leetcode:
 	chmod +x ./scripts/leetcode.sh
-	./scripts/leetcode.sh ./practice/leetcode
+	./scripts/leetcode.sh
