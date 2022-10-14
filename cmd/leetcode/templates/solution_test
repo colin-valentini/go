@@ -1,0 +1,22 @@
+package leetcode
+
+import (
+	"testing"
+
+	"github.com/stretchr/testify/assert"
+)
+
+func Test{{ .SlugTitle }}(t *testing.T) {
+    testCases := []struct{
+        // TODO
+        in any
+        want any
+    }{
+        // TODO
+    }
+    for i, testCase := range testCases {
+        solver := new{{ .SlugTitle }}Solver(testCase.in)
+        got := solver.Solve()
+        assert.Equal(t, testCase.want, got, "Failed test case %d", i+1)
+    }
+}

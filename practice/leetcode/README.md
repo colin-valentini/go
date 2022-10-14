@@ -1,6 +1,11 @@
 # leetcode
 
-## TODO
+## Getting Started
+
+Run `make leetcode` and follow the prompts to generate new folder and starter
+Go files for a given problem. The question ID is the number that LeetCode
+will list at the top of the question description, and the question slug can be
+found at the end of the URL, e.g. `https://leetcode.com/problems/foo-bar-baz`.
 
 ## String
 - [x] [String to Integer Atoi](https://leetcode.com/problems/string-to-integer-atoi/)

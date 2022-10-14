@@ -1,0 +1,18 @@
+package leetcode
+
+// LeetCode #{{ .Id }}.
+// https://leetcode.com/problems/{{ .Slug }}/
+
+type {{ .SlugCamel }}Solver struct {
+    // TODO
+    in any
+}
+
+func new{{ .SlugTitle}}Solver(in any) *{{ .SlugCamel }}Solver {
+    return &{{ .SlugCamel }}Solver{in}
+}
+
+func (s *{{ .SlugCamel }}Solver) Solve() any {
+    // TODO
+    return nil
+}
