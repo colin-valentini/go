@@ -50,7 +50,7 @@ func (ic *InitCmd) Run() error {
 		if err != nil {
 			return fmt.Errorf("parsing template file for %s: %s\n", fName, err)
 		}
-		if temp.Execute(f, templateData); err != nil {
+		if err := temp.Execute(f, templateData); err != nil {
 			return fmt.Errorf("executing template file for %s: %s\n", fName, err)
 		}
 		log.Printf("Generated file %s\n", fName)
