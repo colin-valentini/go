@@ -1,4 +1,4 @@
-load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
+load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
 
 go_library(
     name = "leetcode_lib",
@@ -15,4 +15,11 @@ go_binary(
     name = "leetcode",
     embed = [":leetcode_lib"],
     visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "leetcode_test",
+    srcs = ["init_cmd_test.go"],
+    embed = [":leetcode_lib"],
+    deps = ["@com_github_stretchr_testify//assert"],
 )

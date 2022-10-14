@@ -20,14 +20,9 @@ type InitCmd struct {
 	Slug string `arg:"" name:"slug" required:"" help:"The LeetCode question title slug." type:""`
 }
 
-type TemplateData struct {
-	Id                         int
-	Slug, SlugCamel, SlugTitle string
-}
-
 func (ic *InitCmd) Run() error {
 	log.Printf("Running LeetCode init command for id=%d, slug=%s\n", ic.Id, ic.Slug)
-	templateFiles, err := templateFiles()
+	tmplFiles, err := templateFiles()
 	if err != nil {
 		return fmt.Errorf("reading template files: %s\n", err)
 	}
@@ -38,25 +33,32 @@ func (ic *InitCmd) Run() error {
 	}
 	log.Printf("Created target directory at %s\n", targetDir)
 
-	templateData := ic.templateData()
-	for _, tempFile := range templateFiles {
-		fName := fmt.Sprintf("%s.go", filepath.Base(tempFile))
+	tmplData := ic.templateData()
+	for _, tmplFile := range tmplFiles {
+		fName := fmt.Sprintf("%s.go", filepath.Base(tmplFile))
 		f, err := os.Create(filepath.Join(targetDir, fName))
 		if err != nil {
 			return fmt.Errorf("creating file %s: %s\n", fName, err)
 		}
 		defer f.Close()
-		temp, err := template.ParseFiles(tempFile)
+		tmpl, err := template.ParseFiles(tmplFile)
 		if err != nil {
 			return fmt.Errorf("parsing template file for %s: %s\n", fName, err)
 		}
-		if err := temp.Execute(f, templateData); err != nil {
+		if err := tmpl.Execute(f, tmplData); err != nil {
 			return fmt.Errorf("executing template file for %s: %s\n", fName, err)
 		}
 		log.Printf("Generated file %s\n", fName)
 	}
 	log.Println("Done")
 	return nil
+}
+
+type TemplateData struct {
+	Id        int
+	Slug      string
+	SlugCamel string
+	SlugTitle string
 }
 
 func (ic *InitCmd) templateData() TemplateData {
@@ -69,8 +71,8 @@ func (ic *InitCmd) templateData() TemplateData {
 }
 
 func templateFiles() ([]string, error) {
-	tDir := templateDir()
-	entries, err := os.ReadDir(tDir)
+	tmplDir := templateDir()
+	entries, err := os.ReadDir(tmplDir)
 	if err != nil {
 		return nil, fmt.Errorf("reading directory %s: \n", err)
 	}
@@ -78,9 +80,10 @@ func templateFiles() ([]string, error) {
 	for _, entry := range entries {
 		// Skip any subdirectories
 		if entry.IsDir() {
+			log.Printf("Skipping template subdir %s\n", entry.Name())
 			continue
 		}
-		files = append(files, filepath.Join(tDir, entry.Name()))
+		files = append(files, filepath.Join(tmplDir, entry.Name()))
 	}
 	return files, nil
 }
@@ -108,6 +111,9 @@ func transformCase(slug string, style caseStyle) string {
 			continue
 		}
 		elem := []rune(elems[i])
+		if len(elem) == 0 {
+			continue
+		}
 		elems[i] = strings.ToUpper(string(elem[0])) + string(elem[1:])
 	}
 	return strings.Join(elems, "")
