@@ -2,16 +2,22 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"os"
 	"path/filepath"
+	"runtime"
 	"strings"
 	"text/template"
+)
+
+var (
+	_, b, _, _ = runtime.Caller(0)
+	basepath   = filepath.Dir(b)
 )
 
 type InitCmd struct {
 	Id   int    `arg:"" name:"id" required:"" help:"The LeetCode question identifier." type:""`
 	Slug string `arg:"" name:"slug" required:"" help:"The LeetCode question title slug." type:""`
-	Dir  string `arg:"" name:"dir" required:"" help:"The directory where the files should be created." type:"path"`
 }
 
 type TemplateData struct {
@@ -20,75 +26,84 @@ type TemplateData struct {
 }
 
 func (ic *InitCmd) Run() error {
-	fmt.Printf("id: %d, slug: %q, dir: %s\n", ic.Id, ic.Slug, ic.Dir)
-	folder := fmt.Sprintf("%s/%d_%s", ic.Dir, ic.Id, ic.Slug)
-	if err := os.MkdirAll(folder, 0755); err != nil {
-		return fmt.Errorf("creating leetcode folder: %s\n", err)
-	}
-	tmpDir, err := filepath.Abs("./cmd/leetcode/templates/")
+	log.Printf("Running LeetCode init command for id=%d, slug=%s\n", ic.Id, ic.Slug)
+	templateFiles, err := templateFiles()
 	if err != nil {
-		return fmt.Errorf("getting path to templates directory: %s\n", err)
+		return fmt.Errorf("reading template files: %s\n", err)
 	}
-	tmpData := TemplateData{
+
+	targetDir := filepath.Join(leetCodeDir(), fmt.Sprintf("%d_%s", ic.Id, ic.Slug))
+	if err := os.MkdirAll(targetDir, 0755); err != nil {
+		return fmt.Errorf("creating leetcode target dir: %s\n", err)
+	}
+	log.Printf("Created target directory at %s\n", targetDir)
+
+	templateData := ic.templateData()
+	for _, tempFile := range templateFiles {
+		fName := fmt.Sprintf("%s.go", filepath.Base(tempFile))
+		f, err := os.Create(filepath.Join(targetDir, fName))
+		if err != nil {
+			return fmt.Errorf("creating file %s: %s\n", fName, err)
+		}
+		defer f.Close()
+		temp, err := template.ParseFiles(tempFile)
+		if err != nil {
+			return fmt.Errorf("parsing template file for %s: %s\n", fName, err)
+		}
+		if temp.Execute(f, templateData); err != nil {
+			return fmt.Errorf("executing template file for %s: %s\n", fName, err)
+		}
+		log.Printf("Generated file %s\n", fName)
+	}
+	log.Println("Done")
+	return nil
+}
+
+func (ic *InitCmd) templateData() TemplateData {
+	return TemplateData{
 		Id:        ic.Id,
 		Slug:      ic.Slug,
-		SlugCamel: camelCase(ic.Slug),
-		SlugTitle: titleCase(ic.Slug),
+		SlugCamel: transformCase(ic.Slug, camelCase),
+		SlugTitle: transformCase(ic.Slug, titleCase),
 	}
-	if err := genSolutionGo(folder, tmpData, tmpDir); err != nil {
-		return err
-	}
-	if err := genSolutionTestGo(folder, tmpData, tmpDir); err != nil {
-		return err
-	}
-	return nil
 }
 
-func genSolutionGo(folder string, tmpData TemplateData, tmpDir string) error {
-	solutionFile, err := os.Create(fmt.Sprintf("%s/solution.go", folder))
+func templateFiles() ([]string, error) {
+	tDir := templateDir()
+	entries, err := os.ReadDir(tDir)
 	if err != nil {
-		return fmt.Errorf("creating solution.go file: %s\n", err)
+		return nil, fmt.Errorf("reading directory %s: \n", err)
 	}
-	defer solutionFile.Close()
-	solutionTmp, err := template.ParseFiles(tmpDir + "/solution")
-	if err != nil {
-		return fmt.Errorf("parsing solution template file: %s\n", err)
+	files := make([]string, 0, len(entries))
+	for _, entry := range entries {
+		// Skip any subdirectories
+		if entry.IsDir() {
+			continue
+		}
+		files = append(files, filepath.Join(tDir, entry.Name()))
 	}
-	if err := solutionTmp.Execute(solutionFile, tmpData); err != nil {
-		return fmt.Errorf("executing solution template: %s\n", err)
-	}
-	return nil
+	return files, nil
 }
 
-func genSolutionTestGo(folder string, tmpData TemplateData, tmpDir string) error {
-	solutionTestFile, err := os.Create(fmt.Sprintf("%s/solution_test.go", folder))
-	if err != nil {
-		return fmt.Errorf("creating solution_test.go file: %s\n", err)
-	}
-	defer solutionTestFile.Close()
-	solutionTmp, err := template.ParseFiles(tmpDir + "/solution_test")
-	if err != nil {
-		return fmt.Errorf("parsing solution_test template file: %s\n", err)
-	}
-	if err := solutionTmp.Execute(solutionTestFile, tmpData); err != nil {
-		return fmt.Errorf("executing solution_test template: %s\n", err)
-	}
-	return nil
+func templateDir() string {
+	return filepath.Join(basepath, "templates")
 }
 
-func titleCase(slug string) string {
+func leetCodeDir() string {
+	return filepath.Join(basepath, "../../practice/leetcode")
+}
+
+type caseStyle int
+
+const (
+	titleCase caseStyle = iota
+	camelCase
+)
+
+func transformCase(slug string, style caseStyle) string {
 	elems := strings.Split(slug, "-")
 	for i := range elems {
-		elem := []rune(elems[i])
-		elems[i] = strings.ToUpper(string(elem[0])) + string(elem[1:])
-	}
-	return strings.Join(elems, "")
-}
-
-func camelCase(slug string) string {
-	elems := strings.Split(slug, "-")
-	for i := range elems {
-		if i == 0 {
+		if style == camelCase && i == 0 {
 			elems[i] = strings.ToLower(elems[i])
 			continue
 		}
