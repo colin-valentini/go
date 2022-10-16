@@ -1,4 +1,4 @@
-package leetcode
+package sudokusolver
 
 import (
 	"testing"
