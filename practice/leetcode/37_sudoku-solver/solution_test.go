@@ -30,6 +30,8 @@ func TestSudokuSolver(t *testing.T) {
 		{'3', '4', '5', '2', '8', '6', '1', '7', '9'},
 	}
 	// Solves in-place.
-	newSudokuSolverSolver(got).Solve()
+	solver := newSudokuSolverSolver(got)
+	solver.Solve()
 	assert.Equal(t, want, got)
+	assert.Equal(t, -1, solver.index.subBoard(99, 99))
 }
