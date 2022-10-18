@@ -15,8 +15,8 @@ func TestMergeKSortedLists(t *testing.T) {
 	}).Solve()
 	assert.Equal(t, want, got)
 
-	// assert.Nil(t, NewSolver([]*ListNode{}).Solve())
-	// assert.Nil(t, NewSolver([]*ListNode{nil}).Solve())
+	assert.Nil(t, NewSolver([]*ListNode{}).Solve())
+	assert.Nil(t, NewSolver([]*ListNode{nil}).Solve())
 }
 
 func makeListNode(t *testing.T, values []int) *ListNode {
