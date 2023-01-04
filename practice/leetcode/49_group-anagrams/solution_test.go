@@ -30,6 +30,7 @@ func TestSolver(t *testing.T) {
 		solver := NewSolver(testCase.strs)
 		got := solver.Solve()
 		require.Len(t, got, len(testCase.want))
+		// Sort the strings because ordering does not matter for this problem.
 		for i := range got {
 			sort.Strings(got[i])
 			sort.Strings(testCase.want[i])

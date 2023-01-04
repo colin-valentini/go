@@ -43,6 +43,10 @@ func (s *Solver) Solve() [][]string {
 	if len(s.strs) == 0 {
 		return [][]string{{}}
 	}
+	// Maintain an index from character counts (the unique identifier
+	// for an anagram) to the list of strings that are anagram equivalent.
+	// Can do this only because fixed-size arrays are "comparable" in Go.
+	// (cannot do this with slices).
 	m := make(map[charCount]*[]string)
 	for _, str := range s.strs {
 		counts := newCharCount(str)
@@ -52,6 +56,7 @@ func (s *Solver) Solve() [][]string {
 			m[counts] = &([]string{str})
 		}
 	}
+	// Transform the groups into a slice of slice of string.
 	groups := make([][]string, 0, len(m))
 	for _, group := range m {
 		groups = append(groups, *group)
