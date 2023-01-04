@@ -13,6 +13,7 @@ func TestSolver(t *testing.T) {
 	}{
 		{s: "anagram", t: "nagaram", want: true},
 		{s: "rat", t: "car", want: false},
+		{s: "abc", t: "ab", want: false},
 	}
 	for i, testCase := range testCases {
 		solver := NewSolver(testCase.s, testCase.t)
