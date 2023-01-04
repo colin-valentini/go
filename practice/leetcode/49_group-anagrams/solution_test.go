@@ -21,6 +21,10 @@ func TestSolver(t *testing.T) {
 				{"ate", "eat", "tea"},
 			},
 		},
+		{
+			strs: []string{},
+			want: [][]string{{}},
+		},
 	}
 	for i, testCase := range testCases {
 		solver := NewSolver(testCase.strs)
