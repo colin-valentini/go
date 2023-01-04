@@ -1,18 +1,18 @@
-package leetcode
+package {{ .SlugLower }}
 
 // LeetCode #{{ .Id }}.
 // https://leetcode.com/problems/{{ .Slug }}/
 
-type {{ .SlugCamel }}Solver struct {
+type Solver struct {
     // TODO
     in any
 }
 
-func new{{ .SlugTitle}}Solver(in any) *{{ .SlugCamel }}Solver {
-    return &{{ .SlugCamel }}Solver{in}
+func NewSolver(in any) *Solver {
+    return &Solver{in: in}
 }
 
-func (s *{{ .SlugCamel }}Solver) Solve() any {
+func (s *Solver) Solve() any {
     // TODO
     return nil
 }

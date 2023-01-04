@@ -59,6 +59,7 @@ type TemplateData struct {
 	Slug      string
 	SlugCamel string
 	SlugTitle string
+	SlugLower string
 }
 
 func (ic *InitCmd) templateData() TemplateData {
@@ -67,6 +68,7 @@ func (ic *InitCmd) templateData() TemplateData {
 		Slug:      ic.Slug,
 		SlugCamel: transformCase(ic.Slug, camelCase),
 		SlugTitle: transformCase(ic.Slug, titleCase),
+		SlugLower: transformCase(ic.Slug, lowerCase),
 	}
 }
 
@@ -101,9 +103,13 @@ type caseStyle int
 const (
 	titleCase caseStyle = iota
 	camelCase
+	lowerCase
 )
 
 func transformCase(slug string, style caseStyle) string {
+	if style == lowerCase {
+		return strings.ToLower(strings.ReplaceAll(slug, "-", ""))
+	}
 	elems := strings.Split(slug, "-")
 	for i := range elems {
 		if style == camelCase && i == 0 {
