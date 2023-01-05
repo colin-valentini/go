@@ -75,7 +75,8 @@ func (s *Solver) matchesParen(opener, closer rune) bool {
 	case '{':
 		return closer == '}'
 	default:
-		panic("unexpected left paren or bracket " + string(opener))
+		// Unreachable. We only push valid openers to the stacks.
+		panic("unexpected opener paren or bracket " + string(opener))
 	}
 }
 
