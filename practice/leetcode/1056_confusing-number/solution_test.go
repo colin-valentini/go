@@ -1,0 +1,22 @@
+package confusingnumber
+
+import (
+	"testing"
+
+	"github.com/stretchr/testify/assert"
+)
+
+func TestSolver(t *testing.T) {
+    testCases := []struct{
+        // TODO
+        in any
+        want any
+    }{
+        // TODO
+    }
+    for i, testCase := range testCases {
+        solver := NewSolver(testCase.in)
+        got := solver.Solve()
+        assert.Equal(t, testCase.want, got, "Failed test case %d", i+1)
+    }
+}
