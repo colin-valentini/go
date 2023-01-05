@@ -1,0 +1,15 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "238_product-of-array-except-self",
+    srcs = ["solution.go"],
+    importpath = "github.com/colin-valentini/go/practice/leetcode/238_product-of-array-except-self",
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "238_product-of-array-except-self_test",
+    srcs = ["solution_test.go"],
+    embed = [":238_product-of-array-except-self"],
+    deps = ["@com_github_stretchr_testify//assert"],
+)
