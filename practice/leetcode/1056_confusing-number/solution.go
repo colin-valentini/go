@@ -38,10 +38,8 @@ func (s *Solver) Solve() bool {
 		}
 		rotated[len(rotated)-i-1] = rdigit
 	}
-	m, err := strconv.Atoi(string(rotated))
-	if err != nil {
-		return false
-	}
+	// Ignore the error. It will always be possible to parse.
+	m, _ := strconv.Atoi(string(rotated))
 	return m != s.n
 }
 
