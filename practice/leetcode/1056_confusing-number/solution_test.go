@@ -16,6 +16,7 @@ func TestSolver(t *testing.T) {
 		{n: 11, want: false},
 		{n: 916, want: false},
 		{n: 902, want: false},
+		{n: 8000, want: true},
 	}
 	for i, testCase := range testCases {
 		solver := NewSolver(testCase.n)
