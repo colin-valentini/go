@@ -40,6 +40,11 @@ func TestSolver(t *testing.T) {
 			"5",
 			"+",
 		}, want: 22},
+		{tokens: []string{
+			"1",
+			"1",
+			"-",
+		}, want: 0},
 	}
 	for i, testCase := range testCases {
 		solver := NewSolver(testCase.tokens)
