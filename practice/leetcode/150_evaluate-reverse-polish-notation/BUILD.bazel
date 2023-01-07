@@ -1,0 +1,15 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "150_evaluate-reverse-polish-notation",
+    srcs = ["solution.go"],
+    importpath = "github.com/colin-valentini/go/practice/leetcode/150_evaluate-reverse-polish-notation",
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "150_evaluate-reverse-polish-notation_test",
+    srcs = ["solution_test.go"],
+    embed = [":150_evaluate-reverse-polish-notation"],
+    deps = ["@com_github_stretchr_testify//assert"],
+)
