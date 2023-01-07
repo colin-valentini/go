@@ -38,7 +38,7 @@ func NewSolver(temps []int) *Solver {
 
 // Solve solves the Daily Temperatures problem.
 // Time: O(N). Space: O(N).
-func (s *Solver) Solve() any {
+func (s *Solver) Solve() []int {
 	// Key Insight: Build up elements that are "waiting" to find a next-greater
 	// temperature in descending order on a stack. That way, when we find an
 	// temperature that is greater than the top of our stack, we can find the
