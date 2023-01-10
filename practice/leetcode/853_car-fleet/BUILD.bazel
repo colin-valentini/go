@@ -1,0 +1,15 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "853_car-fleet",
+    srcs = ["solution.go"],
+    importpath = "github.com/colin-valentini/go/practice/leetcode/853_car-fleet",
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "853_car-fleet_test",
+    srcs = ["solution_test.go"],
+    embed = [":853_car-fleet"],
+    deps = ["@com_github_stretchr_testify//assert"],
+)
