@@ -126,10 +126,6 @@ func (s *stack) push(v car) {
 	s.fleets = append(s.fleets, v)
 }
 
-func (s *stack) pop() {
-	s.fleets = s.fleets[:s.len()-1]
-}
-
 func (s *stack) peek() (car, bool) {
 	if len(s.fleets) == 0 {
 		return car{}, false
