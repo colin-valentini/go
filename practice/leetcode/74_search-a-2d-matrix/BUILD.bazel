@@ -1,0 +1,15 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "74_search-a-2d-matrix",
+    srcs = ["solution.go"],
+    importpath = "github.com/colin-valentini/go/practice/leetcode/74_search-a-2d-matrix",
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "74_search-a-2d-matrix_test",
+    srcs = ["solution_test.go"],
+    embed = [":74_search-a-2d-matrix"],
+    deps = ["@com_github_stretchr_testify//assert"],
+)
