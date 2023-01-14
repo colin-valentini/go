@@ -30,6 +30,26 @@ func TestSolver(t *testing.T) {
 			target: 13,
 			want:   false,
 		},
+		{
+			matrix: [][]int{
+				{1, 3, 5, 7},
+				{10, 11, 16, 20},
+				{23, 30, 34, 60},
+				{69, 70, 73, 99},
+			},
+			target: 72,
+			want:   false,
+		},
+		{
+			matrix: [][]int{
+				{1, 3, 5, 7},
+				{10, 11, 16, 20},
+				{23, 30, 34, 60},
+				{69, 70, 73, 99},
+			},
+			target: 666,
+			want:   false,
+		},
 	}
 	for i, testCase := range testCases {
 		solver := NewSolver(testCase.matrix, testCase.target)
