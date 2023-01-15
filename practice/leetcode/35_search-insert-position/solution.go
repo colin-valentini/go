@@ -52,29 +52,25 @@ func (s *Solver) Solve() int {
 		return n
 	}
 
-	// Binary search for any of the following desired conditions:
-	//  (1) mid value is exactly the target value.
-	//  (2) target fits between mid value and the value just before mid.
-	//  (3) target fits between mid value and the value just after mid.
-	for left, right := 0, n-1; left <= right; {
+	left, right := 0, n-1
+	for left <= right {
 		mid := left + (right-left)/2
 		if s.nums[mid] == s.target {
-			// Condition (1).
 			return mid
 		} else if s.target < s.nums[mid] {
-			// Condition (2).
-			if mid > 0 && s.nums[mid-1] < s.target {
-				return mid
-			}
 			right = mid - 1
 		} else if s.nums[mid] < s.target {
-			// Conidition (3).
-			if mid < n-1 && s.target < s.nums[mid+1] {
-				return mid + 1
-			}
 			left = mid + 1
 		}
 	}
-	// Unreachable.
-	return -1
+	// We know that if the target does NOT exist in the array, then the
+	// last iteration of the loop will have left == right, and mid == left.
+	// There are two cases:
+	//   (1) The target is less than the mid value, so we decrement right.
+	//   (2) The target is greater than the mid value, so we increment left.
+	// In case (1), the target fits just before mid and mid = left, so left is
+	// the insert position. In case (2), left is incremented so that target
+	// sits just before left.
+	// Hence, we always finish such that s.nums[right] < target < s.nums[left].
+	return left
 }
