@@ -1,0 +1,15 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "1519_number-of-nodes-in-the-sub-tree-with-the-same-label",
+    srcs = ["solution.go"],
+    importpath = "github.com/colin-valentini/go/practice/leetcode/1519_number-of-nodes-in-the-sub-tree-with-the-same-label",
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "1519_number-of-nodes-in-the-sub-tree-with-the-same-label_test",
+    srcs = ["solution_test.go"],
+    embed = [":1519_number-of-nodes-in-the-sub-tree-with-the-same-label"],
+    deps = ["@com_github_stretchr_testify//assert"],
+)
