@@ -90,7 +90,7 @@ func NewSolver(piles []int, h int) *Solver {
 }
 
 // Solve solves the Koko Eating Bananas problem.
-// Time: O(N + log(N)).
+// Time: O(N log(M)), for M = max(piles).
 // Space: O(1).
 func (s *Solver) Solve() int {
 	max := s.maxPile()
