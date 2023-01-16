@@ -101,7 +101,6 @@ func (s *Solver) Solve() int {
 	}
 
 	// Binary search for the min.
-	min := max
 	left, right := 1, max
 	for left <= right {
 		k := left + (right-left)/2
@@ -113,14 +112,10 @@ func (s *Solver) Solve() int {
 		} else {
 			// This choice of k enabled consuming all piles within
 			// the time limit, but there could still be a smaller k.
-			if k < min {
-				min = k
-			}
 			right = k - 1
 		}
-
 	}
-	return min
+	return left
 }
 
 func (s *Solver) maxPile() int {
