@@ -1,0 +1,15 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "981_time-based-key-value-store",
+    srcs = ["solution.go"],
+    importpath = "github.com/colin-valentini/go/practice/leetcode/981_time-based-key-value-store",
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "981_time-based-key-value-store_test",
+    srcs = ["solution_test.go"],
+    embed = [":981_time-based-key-value-store"],
+    deps = ["@com_github_stretchr_testify//assert"],
+)
