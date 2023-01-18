@@ -28,6 +28,7 @@ func TestSolver(t *testing.T) {
 		{nums: []int{3, 1}, target: 0, want: -1},
 		{nums: []int{3, 1}, target: 3, want: 0},
 		{nums: []int{3, 1}, target: 1, want: 1},
+		{nums: []int{2, 4, 6, 8, 10}, target: 3, want: -1},
 	}
 	for i, testCase := range testCases {
 		solver := NewSolver(testCase.nums, testCase.target)
