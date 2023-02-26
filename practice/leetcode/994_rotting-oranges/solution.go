@@ -28,7 +28,7 @@ func (s *Solver) Solve() int {
 	minutes := 0
 	next := newQueue()
 	for q.len() > 0 {
-		cell, _ := q.dequeue()
+		cell := q.dequeue()
 		for _, neighbor := range cell.neighbors() {
 			if !s.isInBounds(neighbor) || s.value(neighbor) != fresh {
 				continue
@@ -91,13 +91,11 @@ func (q *queue) enqueue(cell loc) {
 	q.elems = append(q.elems, cell)
 }
 
-func (q *queue) dequeue() (loc, bool) {
-	if q.len() == 0 {
-		return loc{}, false
-	}
+func (q *queue) dequeue() loc {
+	// Panics if queue is empty.
 	cell := q.elems[0]
 	q.elems = q.elems[1:]
-	return cell, true
+	return cell
 }
 
 func (q *queue) len() int {
