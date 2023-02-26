@@ -19,6 +19,22 @@ func TestSolver(t *testing.T) {
 			prices: []int{7, 6, 4, 3, 1},
 			want:   0,
 		},
+		{
+			prices: []int{1, 2},
+			want:   1,
+		},
+		{
+			prices: []int{2, 1},
+			want:   0,
+		},
+		{
+			prices: []int{1},
+			want:   0,
+		},
+		{
+			prices: []int{},
+			want:   0,
+		},
 	}
 	for i, testCase := range testCases {
 		solver := NewSolver(testCase.prices)
