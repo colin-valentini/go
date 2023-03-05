@@ -1,0 +1,15 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "567_permutation-in-string",
+    srcs = ["solution.go"],
+    importpath = "github.com/colin-valentini/go/practice/leetcode/567_permutation-in-string",
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "567_permutation-in-string_test",
+    srcs = ["solution_test.go"],
+    embed = [":567_permutation-in-string"],
+    deps = ["@com_github_stretchr_testify//assert"],
+)
