@@ -18,54 +18,29 @@ func (s *Solver) Solve() bool {
 		return false
 	}
 
-	counts := newCharCounts()
-	for i := 0; i < len(s.s1); i++ {
-		counts.inc(s.s1[i])
+	counts := [26]int{}
+	for i := range s.s1 {
+		counts[s.s1[i]-'a']++
 	}
 
-	for left, right := 0, 0; left < len(s.s2); left++ {
-		if right < left {
-			right = left
-		}
-		// Move the right anchor of the window as far right as
-		// possible.
-		for right < len(s.s2) && counts.has(s.s2[right]) {
-			counts.dec(s.s2[right])
-			right++
-		}
-		if counts.isEmpty() {
+	left := 0
+	for right := range s.s2 {
+		counts[s.s2[right]-'a']--
+		if counts == [26]int{} {
+			// Permutation exists when the counts array is exactly
+			// zero everywhere, meaning our counts "balance out"
+			// and the current window contains exactly the same
+			// characters (and frequency of them) as s1.
 			return true
 		}
-		if right > left {
-			counts.inc(s.s2[left])
+		if right+1 >= len(s.s1) {
+			// Extending would create a window of greater size
+			// than the permutation we're looking for, so shift
+			// left forward, and add back whatever character left
+			// pointed to in s2.
+			counts[s.s2[left]-'a']++
+			left++
 		}
 	}
 	return false
-}
-
-type charCounts struct {
-	counts [26]int
-	total  int
-}
-
-func newCharCounts() *charCounts {
-	return &charCounts{counts: [26]int{}, total: 0}
-}
-
-func (c *charCounts) inc(char byte) {
-	c.counts[char-'a']++
-	c.total++
-}
-
-func (c *charCounts) dec(char byte) {
-	c.counts[char-'a']--
-	c.total--
-}
-
-func (c *charCounts) has(char byte) bool {
-	return c.counts[char-'a'] > 0
-}
-
-func (c *charCounts) isEmpty() bool {
-	return c.total == 0
 }
