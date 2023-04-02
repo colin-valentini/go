@@ -1,0 +1,15 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "1046_last-stone-weight",
+    srcs = ["solution.go"],
+    importpath = "github.com/colin-valentini/go/practice/leetcode/1046_last-stone-weight",
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "1046_last-stone-weight_test",
+    srcs = ["solution_test.go"],
+    embed = [":1046_last-stone-weight"],
+    deps = ["@com_github_stretchr_testify//assert"],
+)

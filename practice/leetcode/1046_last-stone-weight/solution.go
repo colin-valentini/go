@@ -1,7 +1,5 @@
 package laststoneweight
 
-import "sort"
-
 // LeetCode #1046.
 // https://leetcode.com/problems/last-stone-weight/
 
@@ -24,6 +22,17 @@ import "sort"
 //
 // }
 
+// Idea:
+// - Create a max heap from the stones list
+// - At each turn, we pop two elements from the heap
+// - Because the max heap always pops the largest value
+//   we know that we have the largest two stones.
+// - Push the result of smashing both stones back into the heap, if not both destroyed
+// - Repeat above until only one stone is left in the heap.
+// - Return either the last element in the heap (if one), or zero.
+
+import "container/heap"
+
 type Solver struct {
 	stones []int
 }
@@ -33,32 +42,51 @@ func NewSolver(stones []int) *Solver {
 }
 
 func (s *Solver) Solve() int {
-	// Sort the slice descending: O(N * log(N))
-	sort.Slice(s.stones, func(i, j int) bool {
-		return s.stones[i] > s.stones[j]
-	})
-
-	for len(s.stones) > 1 {
-		y, x := s.stones[0], s.stones[1]
-		s.stones = s.stones[2:]
-		if x < y {
-			insertDescOrder(&(s.stones), y-x)
+	h := MaxIntHeap(s.stones)
+	heap.Init(&h)
+	for h.Len() > 1 {
+		x, y := heap.Pop(&h).(int), heap.Pop(&h).(int)
+		min, max := s.minMax(x, y)
+		if min == max {
+			// Both stones destyoed, nothing to do.
+			continue
 		}
+		// Push the fragmented stone back into the heap.
+		heap.Push(&h, max-min)
 	}
-	if len(s.stones) == 0 {
+	if h.Len() == 0 {
 		return 0
 	}
-	return s.stones[0]
+	return heap.Pop(&h).(int)
 }
 
-func insertDescOrder(s *[]int, elem int) {
-	// TODO: Binary-search-ify this
-	for i, v := range *s {
-		if elem > v {
-			*s = append((*s)[:i+1], (*s)[i:]...)
-			(*s)[i] = elem
-			return
-		}
+func (s *Solver) minMax(x, y int) (int, int) {
+	if x <= y {
+		return x, y
 	}
-	*s = append(*s, elem)
+	return y, x
+}
+
+type MaxIntHeap []int
+
+func (h MaxIntHeap) Len() int {
+	return len(h)
+}
+
+func (h MaxIntHeap) Less(i, j int) bool {
+	return h[i] > h[j]
+}
+
+func (h MaxIntHeap) Swap(i, j int) {
+	h[i], h[j] = h[j], h[i]
+}
+
+func (h *MaxIntHeap) Push(val interface{}) {
+	*h = append(*h, val.(int))
+}
+
+func (h *MaxIntHeap) Pop() interface{} {
+	val := (*h)[len(*h)-1]
+	*h = (*h)[:len(*h)-1]
+	return val
 }
