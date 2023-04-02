@@ -85,10 +85,6 @@ func (s *Solver) Add(val int) int {
 	return (*s.h)[0]
 }
 
-func (s *Solver) Solve() any {
-	return nil
-}
-
 type MinIntHeap []int
 
 func (h MinIntHeap) Len() int {
