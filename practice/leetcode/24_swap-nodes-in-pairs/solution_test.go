@@ -26,7 +26,6 @@ func TestSolver(t *testing.T) {
 		got := solver.Solve()
 		if len(testCase.want) == 0 {
 			assert.Nil(t, got, "Failed test case %d: wanted nil", i+1)
-			break
 		}
 		gotNode := got
 		for j, wantNode := range testCase.want {
