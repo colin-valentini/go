@@ -58,7 +58,9 @@ func (s *Solver) Solve() *ListNode {
 }
 
 func (s *Solver) swap(prev, i, j *ListNode) (*ListNode, *ListNode) {
-	i.Next, j.Next = j, i
+	tmp := j.Next
+	j.Next = i
+	i.Next = tmp
 	if prev != nil {
 		prev.Next = j
 	}
