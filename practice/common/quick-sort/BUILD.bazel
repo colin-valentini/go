@@ -1,0 +1,15 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "quick-sort",
+    srcs = ["quick_sort.go"],
+    importpath = "github.com/colin-valentini/go/practice/common/quick-sort",
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "quick-sort_test",
+    srcs = ["quick_sort_test.go"],
+    embed = [":quick-sort"],
+    deps = ["@com_github_stretchr_testify//assert"],
+)
