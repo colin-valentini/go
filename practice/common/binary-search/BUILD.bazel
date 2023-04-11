@@ -1,0 +1,15 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "binary-search",
+    srcs = ["binary_search.go"],
+    importpath = "github.com/colin-valentini/go/practice/common/binary-search",
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "binary-search_test",
+    srcs = ["binary_search_test.go"],
+    embed = [":binary-search"],
+    deps = ["@com_github_stretchr_testify//assert"],
+)
