@@ -75,13 +75,6 @@ func (s *Solver) Solve() int {
 	return h.Len()
 }
 
-func max(x, y int) int {
-	if x > y {
-		return x
-	}
-	return y
-}
-
 type minHeap []int
 
 func (h minHeap) Len() int {
