@@ -36,6 +36,16 @@ func TestSolver(t *testing.T) {
 			},
 			want: 2,
 		},
+		{
+			intervals: [][]int{
+				{0, 5},
+				{0, 10},
+				{5, 10},
+				{10, 15},
+				{15, 20},
+			},
+			want: 2,
+		},
 	}
 	for i, testCase := range testCases {
 		solver := NewSolver(testCase.intervals)
