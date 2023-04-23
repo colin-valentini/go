@@ -40,11 +40,13 @@ func TestSolver(t *testing.T) {
 			intervals: [][]int{
 				{0, 5},
 				{0, 10},
+				{0, 10},
+				{0, 10},
 				{5, 10},
 				{10, 15},
 				{15, 20},
 			},
-			want: 2,
+			want: 4,
 		},
 	}
 	for i, testCase := range testCases {

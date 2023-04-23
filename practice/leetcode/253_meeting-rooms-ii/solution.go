@@ -59,7 +59,6 @@ func (s *Solver) Solve() int {
 
 	h := minHeap([]int{})
 	heap.Init(&h)
-	maxsz := 0
 
 	// O(N*log(N)) in the worst case.
 	for _, interval := range s.intervals {
@@ -68,10 +67,12 @@ func (s *Solver) Solve() int {
 			_ = heap.Pop(&h)
 		}
 		heap.Push(&h, end)
-		maxsz = max(maxsz, h.Len())
 	}
 
-	return maxsz
+	// The heap always maintains the number of meeting rooms we need.
+	// If we add to the heap, that represents a room in use. When we
+	// pop from the heap, we always backfill that spot.
+	return h.Len()
 }
 
 func max(x, y int) int {
