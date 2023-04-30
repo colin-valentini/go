@@ -1,0 +1,18 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "binary-search-tree",
+    srcs = ["binary_search_tree.go"],
+    importpath = "github.com/colin-valentini/go/practice/common/binary-search-tree",
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "binary-search-tree_test",
+    srcs = ["binary_search_tree_test.go"],
+    embed = [":binary-search-tree"],
+    deps = [
+        "@com_github_stretchr_testify//assert",
+        "@com_github_stretchr_testify//require",
+    ],
+)
