@@ -41,63 +41,97 @@ package leetcode
 
 // FindOrder is a solution to the course schedule ii problem.
 func FindOrder(numCourses int, prerequisites [][]int) []int {
-	return findOrder(numCourses, prerequisites)
+	return NewSolver(numCourses, prerequisites).Solve()
 }
 
-func findOrder(numCourses int, prerequisites [][]int) []int {
-	// Build adjacency list from prerequisites
-	adjList := buildAdjacencyList(numCourses, prerequisites)
+type Solver struct {
+	// The total number of courses (nodes), abbreviated.
+	n int
 
-	// DFS from each node:
-	//  - Maintain a set that indicates which nodes are in our current DFS path
-	//  - If we revisit a node in our current path, then a cycle exists and we
-	//    know that there is no solution (early return)
-	//  - When we get to the end of the path, we put that final node into our
-	//    "visited" set, and append it to our course order slice, then return
-	//  - DFS function calls higher in the stack will do the same as we return
-	//    upwards.
-	order := make([]int, 0, numCourses)
-	visited := make(map[int]struct{}, numCourses)
-	for node := range adjList {
-		path := make(map[int]struct{})
-		if !dfs(node, adjList, path, visited, &order) {
-			return []int{}
+	// An adjcency list mapping each node to
+	// a list of nodes that "depend on it".
+	// rdeps[A] = [B, C] means that B and C both
+	// require A, where A, B, C are valid node ints.
+	rdeps [][]int
+
+	// Each element in this slice maintains the
+	// current number of remaining (unfulfilled)
+	// dependencies.
+	// indegree[A] = X means that A requires X
+	// nodes to be fulfilled. If X == 0 then A
+	// can be processed immediately.
+	indegree []int
+}
+
+func NewSolver(n int, edges [][]int) *Solver {
+	rdeps := make([][]int, n)
+	indegree := make([]int, n)
+	for _, edge := range edges {
+		node, dep := edge[0], edge[1]
+		rdeps[dep] = append(rdeps[dep], node)
+		indegree[node]++
+	}
+	return &Solver{
+		n:        n,
+		rdeps:    rdeps,
+		indegree: indegree,
+	}
+}
+
+func (s *Solver) Solve() []int {
+	// Allocate storage for the topological sort ordering.
+	order := make([]int, 0, s.n)
+
+	// Allocate queue storage, and initialize it with
+	// any nodes that have no dependencies.
+	// If a cycle exists, each node in the cycle will
+	// have a non-zero indegree, but we can still have
+	// a node with zero indegree that is a dependency
+	// of another node in a cycle.
+	queue := make([]int, 0, s.n)
+	for node, numDeps := range s.indegree {
+		if numDeps == 0 {
+			queue = append(queue, node)
 		}
 	}
+
+	// Allocate storage for a visited map which will tell
+	// us which nodes have been visited, so we avoid
+	// re-processing nodes (efficiency), and duplicating
+	// them in the result ordering (correctness).
+	visited := make(map[int]nothing, s.n)
+
+	for len(queue) > 0 {
+		node := queue[0]
+		queue = queue[1:]
+		if _, ok := visited[node]; ok {
+			continue
+		}
+		visited[node] = nothing{}
+		order = append(order, node)
+
+		// Decrement the indegree of all nodes that depend
+		// on the current node. If the indegree for any of
+		// these becomes zero, we know it has no remaining
+		// dependencies and can processed by enqueueing it.
+		for _, rdep := range s.rdeps[node] {
+			s.indegree[rdep]--
+			if s.indegree[rdep] == 0 {
+				queue = append(queue, rdep)
+			}
+		}
+	}
+
+	// Ordering will not be complete (have all nodes)
+	// in the event of a cycle. We might get nothing,
+	// or we might have a some nodes outside the cycle.
+	// The problem statement requests an empty result
+	// in this case.
+	if len(order) != s.n {
+		return []int{}
+	}
+
 	return order
 }
 
-func buildAdjacencyList(numCourses int, prerequisites [][]int) [][]int {
-	adjList := make([][]int, numCourses)
-	for _, pair := range prerequisites {
-		node, prereq := pair[0], pair[1]
-		if adjList[node] == nil {
-			adjList[node] = []int{}
-		}
-		adjList[node] = append(adjList[node], prereq)
-	}
-	return adjList
-}
-
-func dfs(node int, adjList [][]int, path, visited map[int]struct{}, order *[]int) bool {
-	// If we revisit a node in our current path, then we know there's a cycle
-	// and we can return false for "no solution"
-	if _, ok := path[node]; ok {
-		return false
-	}
-	// If we've already visited this node, then we know it's been added to our
-	// order list and we can avoid re-searching it's sub-paths.
-	if _, ok := visited[node]; ok {
-		return true
-	}
-	path[node] = struct{}{}
-	for _, prereq := range adjList[node] {
-		if !dfs(prereq, adjList, path, visited, order) {
-			return false
-		}
-	}
-	visited[node] = struct{}{}
-	delete(path, node)
-	*order = append(*order, node)
-	return true
-}
+type nothing struct{}
