@@ -33,4 +33,15 @@ func TestFindOrder(t *testing.T) {
 		{3, 2},
 		{0, 3},
 	}))
+	assert.Equal(t, []int{0, 1}, FindOrder(2, [][]int{
+		{1, 0},
+	}))
+	assert.Equal(t, []int{1, 0}, FindOrder(2, [][]int{
+		{0, 1},
+	}))
+	assert.Equal(t, []int{}, FindOrder(3, [][]int{
+		{1, 0},
+		{1, 2},
+		{0, 1},
+	}))
 }
