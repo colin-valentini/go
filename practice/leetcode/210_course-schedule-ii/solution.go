@@ -88,26 +88,18 @@ func (s *Solver) Solve() []int {
 	// have a non-zero indegree, but we can still have
 	// a node with zero indegree that is a dependency
 	// of another node in a cycle.
-	queue := make([]int, 0, s.n)
+	q := make(queue, 0, s.n)
 	for node, numDeps := range s.indegree {
 		if numDeps == 0 {
-			queue = append(queue, node)
+			q.push(node)
 		}
 	}
 
-	// Allocate storage for a visited map which will tell
-	// us which nodes have been visited, so we avoid
-	// re-processing nodes (efficiency), and duplicating
-	// them in the result ordering (correctness).
-	visited := make(map[int]nothing, s.n)
-
-	for len(queue) > 0 {
-		node := queue[0]
-		queue = queue[1:]
-		if _, ok := visited[node]; ok {
-			continue
-		}
-		visited[node] = nothing{}
+	// Process each node in the queue. We only ever enqueue
+	// a node if all of its dependencies have been met.
+	// We never process the same node twice as a reuslt.
+	for len(q) > 0 {
+		node := q.pop()
 		order = append(order, node)
 
 		// Decrement the indegree of all nodes that depend
@@ -117,7 +109,7 @@ func (s *Solver) Solve() []int {
 		for _, rdep := range s.rdeps[node] {
 			s.indegree[rdep]--
 			if s.indegree[rdep] == 0 {
-				queue = append(queue, rdep)
+				q.push(rdep)
 			}
 		}
 	}
@@ -134,4 +126,15 @@ func (s *Solver) Solve() []int {
 	return order
 }
 
-type nothing struct{}
+type queue []int
+
+func (q *queue) push(value int) {
+	*q = append(*q, value)
+}
+
+func (q *queue) pop() int {
+	// panics if called on an empty queue
+	value := (*q)[0]
+	*q = (*q)[1:]
+	return value
+}
