@@ -7,118 +7,133 @@ package pacificatlanticwaterflow
 //
 // }
 
+// Solver is a type that can solve the Pacific Atlantic Water Flow problem.
 type Solver struct {
 	n, m    int
 	heights [][]int
-	visited *cache
 }
 
+// NewSolver returns a pointer to a new instance of the Solver type.
 func NewSolver(heights [][]int) *Solver {
-	n, m := len(heights), len(heights[0])
-	return &Solver{n: n, m: m, heights: heights}
+	return &Solver{n: len(heights), m: len(heights[0]), heights: heights}
 }
 
+// Solve solves the Pacific Atlantic Water Flow problem.
+//
+// The solution use breadth-first search from each ocean
+// separately. We start with the boundaries, and work our
+// way inwards. We can move to a neighboring cell only if
+// that neighbor has a greater or equal height (i.e. that
+// cell could flow "into" the current cell).
+// Once we have both sets of cells that we found using BFS
+// from each ocean, we return the set intersection.
+//
+// Time: O(N * M) since we visit each cell at most twice.
+// Spcae: O(N * M) since we store each cell at most twice.
 func (s *Solver) Solve() [][]int {
-	s.visited = newCache()
-	results := [][]int{}
-	for r := 0; r < s.n; r++ {
-		for c := 0; c < s.m; c++ {
-			coord := coordinates{row: r, col: c}
-			path := make(map[coordinates]nothing)
-			if reach := s.flowSearch(coord, path); reach.isBoth() {
-				results = append(results, []int{coord.row, coord.col})
+	cells := s.atlantic().Intersect(s.pacific())
+	solution := make([][]int, 0, len(cells))
+	for cell := range cells {
+		solution = append(solution, []int{cell.r, cell.c})
+	}
+	return solution
+}
+
+func (s *Solver) atlantic() Set {
+	q := Queue{}
+	// Last row.
+	for c := 0; c < s.m; c++ {
+		q.Push(Cell{r: s.n - 1, c: c})
+	}
+	// Last column, except last row.
+	for r := 0; r < s.n-1; r++ {
+		q.Push(Cell{r: r, c: s.m - 1})
+	}
+	return s.bfs(q)
+}
+
+func (s *Solver) pacific() Set {
+	q := Queue{}
+	// First row.
+	for c := 0; c < s.m; c++ {
+		q.Push(Cell{r: 0, c: c})
+	}
+	// First column except first row.
+	for r := 1; r < s.n; r++ {
+		q.Push(Cell{r: r, c: 0})
+	}
+	return s.bfs(q)
+}
+
+func (s *Solver) bfs(q Queue) Set {
+	visited := make(Set)
+	for len(q) > 0 {
+		cell := q.Pop()
+		if visited.Has(cell) {
+			continue
+		}
+		visited.Add(cell)
+		for _, neighbor := range cell.Neighbors() {
+			if s.inBounds(neighbor) && s.height(neighbor) >= s.height(cell) {
+				q.Push(neighbor)
 			}
 		}
 	}
-	return results
+	return visited
 }
 
-func (s *Solver) isOnGrid(coord coordinates) bool {
-	return 0 <= coord.row && coord.row < s.n && 0 <= coord.col && coord.col < s.m
+func (s *Solver) height(cell Cell) int {
+	return s.heights[cell.r][cell.c]
 }
 
-type reachability struct {
-	pacific, atlantic bool
+func (s *Solver) inBounds(cell Cell) bool {
+	return 0 <= cell.r && cell.r < s.n && 0 <= cell.c && cell.c < s.m
 }
 
-func (r reachability) isBoth() bool {
-	return r.pacific && r.atlantic
+type Cell struct {
+	r, c int
 }
 
-func (r reachability) merge(other reachability) reachability {
-	return reachability{
-		pacific:  r.pacific || other.pacific,
-		atlantic: r.atlantic || other.atlantic,
+func (c Cell) Neighbors() []Cell {
+	return []Cell{
+		{r: c.r - 1, c: c.c},
+		{r: c.r + 1, c: c.c},
+		{r: c.r, c: c.c - 1},
+		{r: c.r, c: c.c + 1},
 	}
 }
 
-type coordinates struct {
-	row, col int
+type Queue []Cell
+
+func (q *Queue) Push(cell Cell) {
+	*q = append(*q, cell)
 }
 
-func (s *Solver) isPacific(coord coordinates) bool {
-	return coord.row < 0 || (coord.row < s.n && coord.col < 0)
+func (q *Queue) Pop() Cell {
+	cell := (*q)[0]
+	*q = (*q)[1:]
+	return cell
 }
 
-func (s *Solver) isAtlantic(coord coordinates) bool {
-	return coord.row >= s.n || (0 <= coord.row && coord.col >= s.m)
+type Set map[Cell]Nothing
+
+func (s Set) Add(v Cell) {
+	s[v] = Nothing{}
 }
 
-func (s *Solver) flowSearch(coord coordinates, path map[coordinates]nothing) reachability {
-	if s.isPacific(coord) {
-		return reachability{pacific: true}
-	}
-	if s.isAtlantic(coord) {
-		return reachability{atlantic: true}
-	}
-	if cached, ok := s.visited.get(coord); ok {
-		return cached
-	}
-	reach := reachability{}
-	path[coord] = nothing{}
-	for _, neighbor := range s.flowNeighbors(coord) {
-		reach = reach.merge(s.flowSearch(neighbor, path))
-	}
-	s.visited.set(coord, reach)
-	delete(path, coord)
-	return reach
+func (s Set) Has(v Cell) bool {
+	_, ok := s[v]
+	return ok
 }
 
-func (s *Solver) flowNeighbors(coord coordinates) []coordinates {
-	coordHeight := s.heights[coord.row][coord.col]
-	flowNeighbors := make([]coordinates, 0, 4)
-	neighbors := []coordinates{
-		{row: coord.row - 1, col: coord.col},
-		{row: coord.row + 1, col: coord.col},
-		{row: coord.row, col: coord.col - 1},
-		{row: coord.row, col: coord.col + 1},
-	}
-	for _, neighbor := range neighbors {
-		// Allow off grid, but filter out greater height neighbors
-		if !s.isOnGrid(neighbor) {
-			flowNeighbors = append(flowNeighbors, neighbor)
-		} else if s.heights[neighbor.row][neighbor.col] <= coordHeight {
-			flowNeighbors = append(flowNeighbors, neighbor)
+func (s Set) Intersect(other Set) Set {
+	intersection := make(Set)
+	for cell := range s {
+		if other.Has(cell) {
+			intersection.Add(cell)
 		}
 	}
-	return flowNeighbors
+	return intersection
 }
 
-type cache struct {
-	reach map[coordinates]reachability
-}
-
-func newCache() *cache {
-	return &cache{reach: make(map[coordinates]reachability)}
-}
-
-func (c *cache) get(coord coordinates) (reachability, bool) {
-	r, ok := c.reach[coord]
-	return r, ok
-}
-
-func (c *cache) set(coord coordinates, reach reachability) {
-	c.reach[coord] = reach
-}
-
-type nothing struct{}
+type Nothing struct{}
