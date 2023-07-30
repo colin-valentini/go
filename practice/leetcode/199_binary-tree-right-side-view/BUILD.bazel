@@ -1,0 +1,15 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "199_binary-tree-right-side-view",
+    srcs = ["solution.go"],
+    importpath = "github.com/colin-valentini/go/practice/leetcode/199_binary-tree-right-side-view",
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "199_binary-tree-right-side-view_test",
+    srcs = ["solution_test.go"],
+    embed = [":199_binary-tree-right-side-view"],
+    deps = ["@com_github_stretchr_testify//assert"],
+)
