@@ -80,6 +80,23 @@ func TestSolver(t *testing.T) {
 			want: false,
 		},
 		{
+			root: &TreeNode{
+				Val:  1,
+				Left: &TreeNode{Val: 2},
+				Right: &TreeNode{
+					Val: 2,
+					Right: &TreeNode{
+						Val: 3,
+						Right: &TreeNode{
+							Val:   4,
+							Right: &TreeNode{Val: 5},
+						},
+					},
+				},
+			},
+			want: false,
+		},
+		{
 			root: &TreeNode{Val: 1},
 			want: true,
 		},
