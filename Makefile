@@ -30,3 +30,7 @@ fix-build: fmt tidy update-bazel
 leetcode:
 	chmod +x ./scripts/leetcode.sh
 	./scripts/leetcode.sh
+
+codecov:
+	chmod +x ./scripts/codecov.sh
+	./scripts/codecov.sh

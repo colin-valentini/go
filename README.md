@@ -43,3 +43,10 @@ See:
 - [golangci/golangci-lint-action](https://github.com/golangci/golangci-lint-action)
 - [codecov/codecov-action](https://github.com/codecov/codecov-action)
 
+## local code coverage
+
+### install codecov
+
+See the [Codecov CLI docs](https://docs.codecov.com/docs/the-codecov-cli) for
+instructions on installing the Codecov binary locally. Once installed, make sure
+its on your path so that it's available. Then you can run `make codecov`.
