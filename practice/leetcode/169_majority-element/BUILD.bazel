@@ -1,0 +1,15 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "169_majority-element",
+    srcs = ["solution.go"],
+    importpath = "github.com/colin-valentini/go/practice/leetcode/169_majority-element",
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "169_majority-element_test",
+    srcs = ["solution_test.go"],
+    embed = [":169_majority-element"],
+    deps = ["@com_github_stretchr_testify//assert"],
+)
