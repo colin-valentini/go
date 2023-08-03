@@ -1,0 +1,15 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "80_remove-duplicates-from-sorted-array-ii",
+    srcs = ["solution.go"],
+    importpath = "github.com/colin-valentini/go/practice/leetcode/80_remove-duplicates-from-sorted-array-ii",
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "80_remove-duplicates-from-sorted-array-ii_test",
+    srcs = ["solution_test.go"],
+    embed = [":80_remove-duplicates-from-sorted-array-ii"],
+    deps = ["@com_github_stretchr_testify//assert"],
+)
