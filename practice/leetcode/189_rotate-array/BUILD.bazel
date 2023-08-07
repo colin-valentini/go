@@ -1,0 +1,18 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "189_rotate-array",
+    srcs = ["solution.go"],
+    importpath = "github.com/colin-valentini/go/practice/leetcode/189_rotate-array",
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "189_rotate-array_test",
+    srcs = ["solution_test.go"],
+    embed = [":189_rotate-array"],
+    deps = [
+        "@com_github_stretchr_testify//assert",
+        "@com_github_stretchr_testify//require",
+    ],
+)
