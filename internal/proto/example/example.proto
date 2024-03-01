@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+option go_package = "github.com/colin-valentini/go/internal/proto/example/example"; 
+
+package example;
+
+service HelloWorld {
+    rpc GetGreeting(GreetingRequest) returns (GreetingResponse) {}
+}
+
+message GreetingRequest {
+    int32 id = 1;
+}
+
+message GreetingResponse {
+    string message = 1;
+}

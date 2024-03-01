@@ -16,7 +16,7 @@ Requires [golang](https://formulae.brew.sh/formula/go#default),
 Run `make build` to build all of the things, `make test` to test all of the
 things, and `make lint` to lint all of the things. If you get a bazel build
 error, try running `make fix-build` which will run formatting and build file
-updates. 
+updates.
 
 ## build tooling
 
@@ -39,7 +39,24 @@ standard Golang toolchain to build, vet, lint, and test. Test coverage is
 uploaded to Codecov for reports on coverage deltas.
 
 See:
+
 - [actions/setup-go](actions/setup-go)
 - [golangci/golangci-lint-action](https://github.com/golangci/golangci-lint-action)
 - [codecov/codecov-action](https://github.com/codecov/codecov-action)
 
+# modules
+
+See https://go.dev/doc/modules/managing-dependencies for documentation on Go
+modules dependency management.
+
+**TL;DR** — if you import a new third party package, for example a line like
+`import "google.golang.org/grpc/status"`, then run `go get .` to automatically
+fetch the dependency and update the `go.mod` and `go.sum` files.
+
+## gopath
+
+My local setup does not have the `$GOPATH` environment variable set (check with
+`echo ${GOPATH?}`). As a result, `GOPATH` falls back to `${HOME}/go`, which you
+can confirm by running `go env GOPATH`. See
+[here](https://pkg.go.dev/cmd/go#hdr-GOPATH_environment_variable) for more
+details.
