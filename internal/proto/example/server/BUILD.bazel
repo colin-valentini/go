@@ -13,6 +13,7 @@ go_library(
     visibility = ["//visibility:private"],
     deps = [
         "//internal/proto/example",
+        "//internal/proto/example/textproto",
         "@org_golang_google_grpc//:go_default_library",
     ],
 )
