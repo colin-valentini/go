@@ -42,7 +42,14 @@ var req = &pb.GreetingRequest{Id: 123}
 var res = &pb.GreetingResponse{Message: "Hello world!"}
 ```
 
-## testing the client and server
+### bazel
+
+See the following links about compatability with Bazel and Gazelle:
+
+- [Proto Depedencies](https://github.com/bazelbuild/rules_go/blob/master/go/dependencies.rst#proto-dependencies)
+- [gRPC Dependencies](https://github.com/bazelbuild/rules_go/blob/master/go/dependencies.rst#grpc-dependencies)
+
+## demo
 
 First, **change into the `example/` subdirectory**, start the server:
 
@@ -54,4 +61,18 @@ In a separate terminal session, run the client side main:
 
 ```sh
 go run client/main.go
+```
+
+### bazel
+
+Start the server:
+
+```sh
+bazel run //internal/proto/example/server:main
+```
+
+In a separate terminal session, run the client side main:
+
+```sh
+bazel run //internal/proto/example/client:main
 ```

@@ -1,0 +1,18 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
+
+go_binary(
+    name = "main",
+    embed = [":server_lib"],
+    visibility = ["//visibility:public"],
+)
+
+go_library(
+    name = "server_lib",
+    srcs = ["main.go"],
+    importpath = "github.com/colin-valentini/go/internal/proto/example/server",
+    visibility = ["//visibility:private"],
+    deps = [
+        "//internal/proto/example",
+        "@org_golang_google_grpc//:go_default_library",
+    ],
+)
