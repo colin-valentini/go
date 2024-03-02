@@ -8,8 +8,16 @@ service HelloWorld {
     rpc GetGreeting(GreetingRequest) returns (GreetingResponse) {}
 }
 
+enum Language {
+    LANGUAGE_UNSPECIFIED = 0;
+    LANGUAGE_ENGLISH = 1;
+    LANGUAGE_SPANISH = 2;
+    LANGUAGE_ITALIAN = 3;
+}
+
 message GreetingRequest {
     int32 id = 1;
+    Language language = 2;
 }
 
 message GreetingResponse {

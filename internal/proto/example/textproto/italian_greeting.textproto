@@ -1,0 +1,4 @@
+# proto-file: internal/proto/example/example.proto
+# proto-message: example.GreetingResponse
+
+message: "Ciao mondo!"

@@ -1,5 +1,9 @@
 package main
 
+// This package is a simple demonstration of gRPC client usage of the service
+// declared in internal/proto/example/example.proto, using stub code generated
+// by the proto compiler.
+
 import (
 	"context"
 	"flag"
@@ -14,8 +18,14 @@ import (
 
 var serverAddr = flag.String("addr", "localhost:50051", "The server address in the format of host:port")
 
-func newGetGreetingRequest() *pb.GreetingRequest {
-	return &pb.GreetingRequest{Id: rand.Int31()} //nolint:gosec
+func getGreeting(client pb.HelloWorldClient, req *pb.GreetingRequest) *pb.GreetingResponse {
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+	greeting, err := client.GetGreeting(ctx, req)
+	if err != nil {
+		log.Fatalf("client.GetGreeting failed: %v", err)
+	}
+	return greeting
 }
 
 func main() {
@@ -32,14 +42,18 @@ func main() {
 	defer conn.Close()
 	client := pb.NewHelloWorldClient(conn)
 
-	log.Printf("Calling HelloWorld.GetGreeting...")
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-	defer cancel()
-	greeting, err := client.GetGreeting(ctx, newGetGreetingRequest())
-	if err != nil {
-		log.Fatalf("client.GetGreeting failed: %v", err)
-	}
+	log.Printf("Calling HelloWorld.GetGreeting with random ID...")
+	greeting := getGreeting(client, &pb.GreetingRequest{
+		Id: rand.Int31(), //nolint:gosec
+	})
 	log.Printf("Got greeting \"%s\" from server", greeting.GetMessage())
+
+	log.Printf("Calling HelloWorld.GetGreeting with special ID...")
+	canned_greeting := getGreeting(client, &pb.GreetingRequest{
+		Id:       69420,
+		Language: pb.Language_LANGUAGE_ITALIAN, //nolint:gosec
+	})
+	log.Printf("Got greeting \"%s\" from server", canned_greeting.GetMessage())
 
 	log.Println("Client main completed successfully")
 }
