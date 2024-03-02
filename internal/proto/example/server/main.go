@@ -46,5 +46,7 @@ func main() {
 	log.Println("Registering server instance...")
 	pb.RegisterHelloWorldServer(grpcServer, newServer())
 	log.Println("Starting server...")
-	grpcServer.Serve(lis)
+	if err := grpcServer.Serve(lis); err != nil {
+		log.Fatalf("failed to serve: %v", err)
+	}
 }
