@@ -1,0 +1,17 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "textproto",
+    srcs = ["textproto.go"],
+    embedsrcs = [
+        "english_greeting.textproto",
+        "italian_greeting.textproto",
+        "spanish_greeting.textproto",
+    ],
+    importpath = "github.com/colin-valentini/go/internal/proto/example/textproto",
+    visibility = ["//:__subpackages__"],
+    deps = [
+        "//internal/proto/example",
+        "@org_golang_google_protobuf//encoding/prototext",
+    ],
+)
