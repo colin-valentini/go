@@ -21,11 +21,11 @@ var _ pb.HelloWorldServer = (*helloWorldServerImpl)(nil)
 
 type helloWorldServerImpl struct {
 	pb.UnimplementedHelloWorldServer
-	canned_responses map[pb.Language]*pb.GreetingResponse
+	cannedResponses map[pb.Language]*pb.GreetingResponse
 }
 
 func newServer() *helloWorldServerImpl {
-	return &helloWorldServerImpl{canned_responses: textpb.GetCannedResponses()}
+	return &helloWorldServerImpl{cannedResponses: textpb.GetCannedResponses()}
 }
 
 func (s *helloWorldServerImpl) GetGreeting(
@@ -33,7 +33,7 @@ func (s *helloWorldServerImpl) GetGreeting(
 ) (*pb.GreetingResponse, error) {
 	log.Printf("Handling GetGreeting request with id: %d", req.GetId())
 	if req.GetId() == 69420 {
-		if res, ok := s.canned_responses[req.GetLanguage()]; ok {
+		if res, ok := s.cannedResponses[req.GetLanguage()]; ok {
 			return res, nil
 		}
 		return nil, fmt.Errorf("invalid language: %q", req.GetLanguage().String())
